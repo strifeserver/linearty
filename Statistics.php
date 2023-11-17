@@ -5,7 +5,7 @@
 	include('Global/Model.php');
 	$model = new Model();
 
-	$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 	
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
@@ -86,7 +86,7 @@
                     
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
                     <!--<li>-->

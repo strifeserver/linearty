@@ -290,7 +290,7 @@
 	    }
 	}
 	
-	$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 	
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
@@ -313,12 +313,18 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <style>
-    .modal-content{
+    /* .modal-content{
         width: 50% !important;
     margin-left: 30%;
     margin-top: 10%;
-        }
+        } */
 
+
+        .imageResize{
+            width: 50% !important;
+            margin-left: 30%;
+            margin-top: 10%;
+	}
 </style>
 <body>
 
@@ -338,7 +344,7 @@
                     <!--A yung buttons mga naka hyper links links-->
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
                     <li>
@@ -378,7 +384,7 @@
 
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<!--<li>-->
@@ -624,7 +630,7 @@
                             
                             ?>
                             <div id="gov_id_modal-<?php echo $row['id']; ?>" class="modal">
-                                <div class="modal-content">
+                                <div class="modal-content imageResize">
                                   <span class="close" id="gov_id_close-<?php echo $row['id']; ?>">&times;</span>
                                   <h2>Request</h2>
                                   <img src="Requirement/<?php echo $row['requirement']; ?>.jpg" style="max-width: 100%;">

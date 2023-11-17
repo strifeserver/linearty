@@ -13,7 +13,7 @@ session_start();
 include 'Global/Model.php';
 $model = new Model();
 
-$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 
 if (!empty($admin_rows)) {
     foreach ($admin_rows as $admin_row) {
@@ -102,7 +102,7 @@ if (isset($_POST['change_request'])) {
             background-color: #d893a3;
             color: #b30021;
         }
-        .modal-content{
+         .imageResize{
             width: 50% !important;
             margin-left: 30%;
             margin-top: 10%;
@@ -135,7 +135,7 @@ if (isset($_POST['change_request'])) {
                     <!--A yung buttons mga naka hyper links links-->
                     <?php
 
-if ($admin_type == 'super') {
+if (@$admin_type == 'super') {
 
     ?>
                     <li>
@@ -175,7 +175,7 @@ if ($admin_type == 'super') {
 
                     <?php
 
-if ($admin_type == 'super') {
+if (@$admin_type == 'super') {
 
     ?>
                     <!--<li>-->
@@ -320,7 +320,7 @@ if (!empty($rows)) {
 
             ?>
                             <div id="gov_id_modal-<?php echo $row['id']; ?>" class="modal">
-                                <div class="modal-content">
+                                <div class="modal-content imageResize">
                                   <span class="close" id="gov_id_close-<?php echo $row['id']; ?>">&times;</span>
                                   <h2>Request</h2>
                                   <img src="Requirement/<?php echo $row['requirement']; ?>.jpg" style="max-width: 100%;">

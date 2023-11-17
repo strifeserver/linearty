@@ -17,7 +17,7 @@
 		$checkDuplicates = $model->checkDuplicate($_POST['pangalan'], $house_no); # Check if already exists
 	
 		if($checkDuplicates == true){
-			echo 'HAS DUPLICATES';
+			// echo 'HAS DUPLICATES';
 			$is_valid = true;
 			$_POST = [];
 			$errMessage = 'Data Already Exist, please change your House No.';
@@ -26,7 +26,7 @@
 	
 	
 		}else if($checkDuplicates == false){
-			echo 'NO DUPLICATES';
+			// echo 'NO DUPLICATES';
 
 			$is_valid = false;
 		}
@@ -79,21 +79,24 @@
 		$family_planning = $fp1.", ".$fp2.", ".$fp3.", ".$fp4.", ".$fp5.", ".$fp6.", ".$fp7;
 		
 		if (!isset($_SESSION['admin_sess'])) {
-		$path = 'Requirement/';
-		$unique = time().uniqid(rand());
-		$destination = $path . $unique . '.jpg';
-	    $base = basename($_FILES["gov_id"]["name"]);
-		$image = $_FILES["gov_id"]["tmp_name"];
-		move_uploaded_file($image, $destination);
+			if(!empty($_FILES["gov_id"]["tmp_name"])){
+
+				$path = 'Requirement/';
+				$unique = time().uniqid(rand());
+				$destination = $path . $unique . '.jpg';
+				$base = basename($_FILES["gov_id"]["name"]);
+				$image = $_FILES["gov_id"]["tmp_name"];
+				move_uploaded_file($image, $destination);
+			}
 		}
-		
+
 		else {
 		    $unique = 'EMPTY';
 		}
-		
+
 		$status = 'Pending';
 
-		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $unique, $status);
+		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, @$unique, $status);
 		if(isset($_POST['kabahayan_name'])){
 
 			foreach ($_POST['kabahayan_name'] as $key => $kbhyn) {
@@ -106,7 +109,7 @@
 	    if (isset($_POST['bata_pangalan'])) {
 	        foreach ($_POST['bata_pangalan'] as $ky => $bt) {
 	            if (trim($ky) != '') {
-	                $model->insertKabataanRow($last_id, $_POST['bata_pangalan'][$ky], $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
+	                @$model->insertKabataanRow($last_id, $_POST['bata_pangalan'][$ky], $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
 	            }
     	    }
 	    }
@@ -138,8 +141,10 @@
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
+
+<?php try { ?>
 <body>
-	<form method="POST">
+	<form method="POST" enctype="multipart/form-data">
 <!------ ANIMATED SIDE NAV BAR START ------------------------------------------------------------------------------>
 	<input type="checkbox" id="nav-toggle">
 	<div class="sidebar">   
@@ -705,4 +710,10 @@
 	<script src="Javascript/Family.js"></script>
 <!------ FAMILY PAPER ENDS ---------------------------------------------------------------------------------------->  
 </body>
+
+<?php } catch (\Throwable $th) {
+	//throw $th;
+}
+
+?>
 </html>

@@ -8,6 +8,13 @@
 		private $dbname = "linearty";
 		private $conn;
 
+		// private $server = "localhost";
+		// private $username = "u134789687_webnever";
+		// private $password = "1#Dz=q![?AiJ";
+		// private $dbname = "u134789687_webnever";
+		// private $conn;
+
+
 		public function __construct() {
 			try {
 				$this->conn = new mysqli($this->server, $this->username, $this->password, $this->dbname);	
@@ -747,9 +754,13 @@
 				}
 				$stmt->close();
 			}
-		
+			if($num_of_rows > 0){
+				return true;
+			}else{
+				return false;
+			}
 	
-			return $data;
+			// return $data;
 		}
 		
 

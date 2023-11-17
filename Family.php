@@ -3,7 +3,7 @@
 	session_start();
 	include('Global/Model.php');
 	$model = new Model();
-	$errMessage = '';
+
 	if (isset($_POST['submit_profile'])) {
 		$house_no = $_POST['house_no'];
 		$street = $_POST['street'];
@@ -12,104 +12,110 @@
 		$relihiyon = $_POST['relihiyon'];
 		$contact_no = $_POST['contact_no'];
 
-		// VALIDATOR
+
 		$is_valid = true;
 		$checkDuplicates = $model->checkDuplicate($_POST['pangalan'], $house_no); # Check if already exists
-		
-		if(!empty($checkDuplicates)){
-			$is_valid = false;
-			$errMessage = 'Data Already Exist, please change your House No.';
-		}else{
+	
+		if($checkDuplicates == true){
+			echo 'HAS DUPLICATES';
 			$is_valid = true;
-			$errMessage = '';
 			$_POST = [];
+			$errMessage = 'Data Already Exist, please change your House No.';
+
+
+	
+	
+		}else if($checkDuplicates == false){
+			echo 'NO DUPLICATES';
+
+			$is_valid = false;
 		}
 		
-		if($is_valid){
 
-			for ($i = 1; $i <= 4; $i++) { 
-				$tgnum = "tg".$i."";
-				$$tgnum = (isset($_POST['tg'.$i.''])) ? $_POST['tg'.$i.''] : "0";
-			}
-	
-			for ($i = 1; $i <= 4; $i++) { 
-				$pnum = "p".$i."";
-				$$pnum = (isset($_POST['p'.$i.''])) ? $_POST['p'.$i.''] : "0";
-			}
-	
-			$tanim = @$_POST['tanim'];
-			$hardin = @$_POST['hardin'];
-			$manok = @$_POST['manok'];
-			$baboy = @$_POST['baboy'];
-	
-			for ($i = 1; $i <= 2; $i++) { 
-				$gnnum = "gn".$i."";
-				$$gnnum = (isset($_POST['gn'.$i.''])) ? $_POST['gn'.$i.''] : "0";
-			}
-	
-			for ($i = 1; $i <= 3; $i++) { 
-				$kbnum = "kb".$i."";
-				$$kbnum = (isset($_POST['kb'.$i.''])) ? $_POST['kb'.$i.''] : "0";
-			}
-	
-			for ($i = 1; $i <= 2; $i++) { 
-				$ppnum = "pp".$i."";
-				$$ppnum = (isset($_POST['pp'.$i.''])) ? $_POST['pp'.$i.''] : "0";
-			}
-	
-			for ($i = 1; $i <= 7; $i++) { 
-				$fpnum = "fp".$i."";
-				$$fpnum = (isset($_POST['fp'.$i.''])) ? $_POST['fp'.$i.''] : "0";
-			}
-	
-			$pangalan = @$_POST['pangalan'];
-			$petsa = @$_POST['petsa'];
-	
-			$tubig = $tg1.", ".$tg2.", ".$tg3.", ".$tg4;
-			$palikuran = $p1.", ".$p2.", ".$p3.", ".$p4;
-	
-			$gumagamit_ng = $gn1.", ".$gn2;
-			$buntis = $kb1.", ".$kb2.", ".$kb3;
-			$pamilya = $pp1.", ".$pp2;
-			$family_planning = $fp1.", ".$fp2.", ".$fp3.", ".$fp4.", ".$fp5.", ".$fp6.", ".$fp7;
-			
-			if (!isset($_SESSION['admin_sess'])) {
-			$path = 'Requirement/';
-			$unique = time().uniqid(rand());
-			$destination = $path . $unique . '.jpg';
-			$base = basename($_FILES["gov_id"]["name"]);
-			$image = $_FILES["gov_id"]["tmp_name"];
-			move_uploaded_file($image, $destination);
-			}
-			
-			else {
-				$unique = 'EMPTY';
-			}
-			
-			$status = 'Pending';
-	
-			$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $unique, $status);
-	
-			if(isset($_POST['kabahayan_name'])){
-				foreach ($_POST['kabahayan_name'] as $key => $kbhyn) {
-					$kabahayan_status = (isset($_POST['kabahayan_status'][$key])) ? $_POST['kabahayan_status'][$key] : "N/A";
-					
-					$model->insertKabahayanRow($last_id, $_POST['kabahayan_name'][$key], $_POST['kabahayan_dob'][$key], $_POST['kabahayan_age'][$key], $_POST['kabahayan_gender'][$key], $_POST['kabahayan_civil'][$key], $_POST['kabahayan_relationship'][$key], $_POST['kabahayan_occupation'][$key], $_POST['kabahayan_year'][$key], $kabahayan_status);
-				}
-			}
+		for ($i = 1; $i <= 4; $i++) { 
+			$tgnum = "tg".$i."";
+			$$tgnum = (isset($_POST['tg'.$i.''])) ? $_POST['tg'.$i.''] : "0";
 		}
 
+		for ($i = 1; $i <= 4; $i++) { 
+			$pnum = "p".$i."";
+			$$pnum = (isset($_POST['p'.$i.''])) ? $_POST['p'.$i.''] : "0";
+		}
+
+		$tanim = @$_POST['tanim'];
+		$hardin = @$_POST['hardin'];
+		$manok = @$_POST['manok'];
+		$baboy = @$_POST['baboy'];
+
+		for ($i = 1; $i <= 2; $i++) { 
+			$gnnum = "gn".$i."";
+			$$gnnum = (isset($_POST['gn'.$i.''])) ? $_POST['gn'.$i.''] : "0";
+		}
+
+		for ($i = 1; $i <= 3; $i++) { 
+			$kbnum = "kb".$i."";
+			$$kbnum = (isset($_POST['kb'.$i.''])) ? $_POST['kb'.$i.''] : "0";
+		}
+
+		for ($i = 1; $i <= 2; $i++) { 
+			$ppnum = "pp".$i."";
+			$$ppnum = (isset($_POST['pp'.$i.''])) ? $_POST['pp'.$i.''] : "0";
+		}
+
+		for ($i = 1; $i <= 7; $i++) { 
+			$fpnum = "fp".$i."";
+			$$fpnum = (isset($_POST['fp'.$i.''])) ? $_POST['fp'.$i.''] : "0";
+		}
+
+		$pangalan = @$_POST['pangalan'];
+		$petsa = @$_POST['petsa'];
+
+		$tubig = $tg1.", ".$tg2.", ".$tg3.", ".$tg4;
+		$palikuran = $p1.", ".$p2.", ".$p3.", ".$p4;
+
+		$gumagamit_ng = $gn1.", ".$gn2;
+		$buntis = $kb1.", ".$kb2.", ".$kb3;
+		$pamilya = $pp1.", ".$pp2;
+		$family_planning = $fp1.", ".$fp2.", ".$fp3.", ".$fp4.", ".$fp5.", ".$fp6.", ".$fp7;
+		
+		if (!isset($_SESSION['admin_sess'])) {
+		$path = 'Requirement/';
+		$unique = time().uniqid(rand());
+		$destination = $path . $unique . '.jpg';
+	    $base = basename($_FILES["gov_id"]["name"]);
+		$image = $_FILES["gov_id"]["tmp_name"];
+		move_uploaded_file($image, $destination);
+		}
+		
+		else {
+		    $unique = 'EMPTY';
+		}
+		
+		$status = 'Pending';
+
+		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $unique, $status);
+		if(isset($_POST['kabahayan_name'])){
+
+			foreach ($_POST['kabahayan_name'] as $key => $kbhyn) {
+				$kabahayan_status = (isset($_POST['kabahayan_status'][$key])) ? $_POST['kabahayan_status'][$key] : "N/A";
+				
+				$model->insertKabahayanRow($last_id, $_POST['kabahayan_name'][$key], $_POST['kabahayan_dob'][$key], $_POST['kabahayan_age'][$key], $_POST['kabahayan_gender'][$key], $_POST['kabahayan_civil'][$key], $_POST['kabahayan_relationship'][$key], $_POST['kabahayan_occupation'][$key], $_POST['kabahayan_year'][$key], $kabahayan_status);
+			}
+		}
+	    
 	    if (isset($_POST['bata_pangalan'])) {
 	        foreach ($_POST['bata_pangalan'] as $ky => $bt) {
-	            if ($ky != '') {
+	            if (trim($ky) != '') {
 	                $model->insertKabataanRow($last_id, $_POST['bata_pangalan'][$ky], $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
 	            }
     	    }
 	    }
+
+		$_POST = [];
 	    
 	}
 	
-	$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 	
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
@@ -146,7 +152,7 @@
 				<ul>
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<li>
@@ -181,7 +187,7 @@
                     
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<li>
@@ -222,14 +228,6 @@
 <!------ ANIMATED SIDE NAV BAR ENDS  ------------------------------------------------------------------------------>
 
 <!------ TOP NAV BAR START ---------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
 	<div class="main-content">
 		<header>
 
@@ -299,10 +297,12 @@
 
 				<!--eto yung title part-->
 				<div class="head">
-					<p style="color:red; font-weight:bold;">
-						<?php echo $errMessage; ?>
-					</p>
 					<div class="details personal">
+						<p style="color: red;  font-weight: bold;">
+					<?php
+					echo $errMessage ?? '';
+					?>
+					</p>
 						<span class="title">Personal</span>
 						
 						<!--mga input fields nung first portion ng form-->
@@ -310,7 +310,7 @@
 
 							<div class="input-fields">
 								<label for="">House No.</label>
-								<input type="text" name="house_no" placeholder="Enter House Number" required value="<?php echo $_POST['house_no'] ?? '' ?>">
+								<input type="text" name="house_no" placeholder="Enter House Number" required>
 							</div>
 
 							<div class="input-fields">

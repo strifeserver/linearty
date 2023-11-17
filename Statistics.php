@@ -46,7 +46,7 @@
                 <ul>
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
                     <li>
@@ -580,6 +580,30 @@
         </main>
         <!--end nung statistics form-->
     </div>
+    <?php
+    $clickable = true; // Set this dynamically based on your logic
+?>
+
+<script>
+    // Check the value of the clickable variable
+    var clickable = <?php echo json_encode($admin_rows); ?>;
+    console.log(clickable);
+    
+    if (clickable == null) {
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all anchor links containing "Statistics-profile.php?type"
+            var links = document.querySelectorAll('a[href*="Statistics-profile.php?type"]');
+
+            // Loop through the links and remove only the href attribute
+            links.forEach(function (link) {
+                console.log(link);
+                link.removeAttribute('href');
+            });
+        });
+
+    }
+</script>
 
 </body>
 

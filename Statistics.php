@@ -222,7 +222,8 @@
             <?php
             
                 
-            
+                $active_residentsv1 = $model->activeResidents();
+    
                 $stat_rows = $model->fetchStatistics();
 
                 if (!empty($stat_rows)) {
@@ -405,7 +406,7 @@
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=2&year=<?php echo $year; ?>">
-                            <h1><?php echo $active_residents; ?></h1>
+                            <h1><?php echo @count($active_residentsv1) ?? 0; ?></h1>
                             <span>Active Residents</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>

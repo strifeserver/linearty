@@ -19,7 +19,7 @@
 		$model->govImageUpdate($pangalan, $unique);
 	}
 	
-	$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 	
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
@@ -56,7 +56,7 @@
 				<ul>
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<li>
@@ -96,7 +96,7 @@
                     
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<li>
@@ -196,7 +196,7 @@
                         <option value="" disabled selected>Piliin ang profile</option>
                         <?php
                         
-                            $rows = $model->fetchProfiles();
+                            $rows = $model->fetchProfilesActive();
                             
                             if (!empty($rows)) {
                                 foreach ($rows as $row) {

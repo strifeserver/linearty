@@ -197,6 +197,23 @@
 			}
 			return $data;
 		}
+
+		public function fetchProfilesActive() {
+			$data = null;
+
+			$query = "SELECT * FROM family_profile WHERE status = 'Approved'";
+
+			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$num_of_rows = $stmt->num_rows;
+				while ($row = $result->fetch_assoc()) {
+					$data[] = $row;
+				}
+				$stmt->close();
+			}
+			return $data;
+		}
 		
 		public function fetchStatistics() {
 			$data = null;
@@ -790,6 +807,24 @@
 			$query = "SELECT family_talaan_kabahayan.id, family_talaan_kabahayan.pangalan , family_profile.house_no, family_profile.contact_no, family_profile.requirement, family_profile.petsa, family_talaan_kabahayan.status as sent ,family_profile.status
 			FROM family_talaan_kabahayan
 			LEFT JOIN family_profile ON family_talaan_kabahayan.profile_id = family_profile.id WHERE family_profile.status = 'inactive';";
+
+			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$num_of_rows = $stmt->num_rows;
+				while ($row = $result->fetch_assoc()) {
+					$data[] = $row;
+				}
+				$stmt->close();
+			}
+			return $data;
+		}
+		public function activeResidents() {
+			$data = null;
+
+			$query = "SELECT family_talaan_kabahayan.id, family_talaan_kabahayan.pangalan , family_profile.house_no, family_profile.contact_no, family_profile.requirement, family_profile.petsa, family_talaan_kabahayan.status as sent ,family_profile.status
+			FROM family_talaan_kabahayan
+			LEFT JOIN family_profile ON family_talaan_kabahayan.profile_id = family_profile.id WHERE family_profile.status = 'Approved';";
 
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->execute();

@@ -299,6 +299,7 @@
                                 foreach ($stat_rows as $stat_row) {
                                     $total_population = $stat_row['total_population'];
                                     $active_residents = $stat_row['active_residents'];
+                              
                                     $infants = $stat_row['infants'];
                                     $households = $stat_row['households'];
                                     $men = $stat_row['men'];
@@ -339,6 +340,7 @@
                                 foreach ($stat_rows as $stat_row) {
                                     $total_population = $stat_row['total_population'];
                                     $active_residents = $stat_row['active_residents'];
+                                   
                                     $infants = $stat_row['infants'];
                                     $households = $stat_row['households'];
                                     $men = $stat_row['men'];
@@ -533,6 +535,25 @@
                             <span>Infants</span>
                             <span>(0-9 months)</span>
                             <small>Year: <?php echo $year; ?></small>
+                        </a>
+                    </div>
+
+                    <div>
+                        <span class="las la-users"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <a href="Statistics-profile.php?type=12&year=<?php echo $year; ?>">
+                            <h1><?php 
+                            
+                            $inactive_residents = $stat_row['inactive_residents'];
+                            echo $inactive_residents;
+                            
+                            ?></h1>
+                            <span>Inactive Residents</span>
+                            <small>Year: <?php echo $year-1; ?></small>
                         </a>
                     </div>
 

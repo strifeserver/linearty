@@ -72,7 +72,7 @@
 				<ul>
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<li>

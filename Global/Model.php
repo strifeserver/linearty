@@ -3,9 +3,9 @@
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
 		private $server = "localhost";
-		private $username = "u134789687_webnever";
-		private $password = "1#Dz=q![?AiJ";
-		private $dbname = "u134789687_webnever";
+		private $username = "root";
+		private $password = "";
+		private $dbname = "linearty";
 		private $conn;
 
 		public function __construct() {
@@ -57,15 +57,18 @@
 
 		public function insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status) {
 			$query = "INSERT INTO family_profile (house_no, street, apartment_owner, sitio, relihiyon, contact_no, tubig, palikuran, tanim, hardin, manok, baboy, gumagamit_ng, buntis, pamilya, family_planning, pangalan, petsa, requirement, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-			if($stmt = $this->conn->prepare($query)) {
+		
+			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->bind_param('ssssssssssssssssssss', $house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status);
 				$stmt->execute();
 				$last_id = $stmt->insert_id;
+				$stmt->close(); // Move this line here
 				return $last_id;
-				$stmt->close();
+			} else {
+				return "Error: " . $this->conn->error; // Return an error message
 			}
 		}
+		
 		
 		public function insertKabahayanRow($profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $katayuan_sibil, $relasyon, $hanapbuhay, $paninirahan, $status) {
 			$query = "INSERT INTO family_talaan_kabahayan (profile_id, pangalan, kapanganakan, edad, kasarian, katayuan_sibil, relasyon, hanapbuhay, paninirahan, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -744,7 +747,7 @@
 				}
 				$stmt->close();
 			}
-			
+		
 	
 			return $data;
 		}

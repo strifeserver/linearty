@@ -309,8 +309,8 @@
                                         <label>Email</label>
                                         <input type="text" placeholder="Email" name="email" value="<?php echo $row['email']; ?>" readonly>
                                         <br>
-                                        <label>Government ID</label>
-                                        <img src="Requests/<?php echo $row['gov_id']; ?>.jpg" style="max-width: 100%;">
+                                        <label>Government ID</label><br>
+                                        <img src="Requirement/<?php echo $row['gov_id']; ?>.jpg" style="max-width: 100%;">
                         
                                         <button name="approve_request" type="submit">Approve</button>
                                     </form>
@@ -329,9 +329,9 @@
                                         
                                         <label>Email</label><br>
                                         <input type="text" placeholder="Email" name="email" value="<?php echo $row['email']; ?>" readonly>
-                                        
-                                        <label>Government ID</label>
-                                        <img src="Requests/<?php echo $row['gov_id']; ?>.jpg" style="max-width: 100%;">
+                                        <br>
+                                        <label>Government ID</label><br>
+                                        <img src="Requirement/<?php echo $row['gov_id']; ?>.jpg" style="max-width: 100%;">
                         
                                         <button name="decline_request" type="submit">Decline</button>
                                     </form>

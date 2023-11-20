@@ -288,7 +288,17 @@
 				<div class="card-single">
 					<div>
                         <a href="Statistics-profile.php?type=1&year=<?php echo $year; ?>">
-                            <h1><?php echo $total_population; ?></h1>
+						<h1><?php 
+                            
+                            
+                            if(is_array($model->totalPopQry())){
+                                echo count($model->totalPopQry());
+                            }else{
+                                echo 0;
+                            }
+                            
+                            
+                            ?></h1>
                             <span>Total Population</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
@@ -302,7 +312,19 @@
 				<div class="card-single">
 					<div>
 						<a href="Statistics-profile.php?type=3&year=<?php echo $year; ?>">
-                            <h1><?php echo $households; ?></h1>
+                            <h1><?php 
+							
+							
+							$householdss = $model->fetchProfiles2();
+                         
+                                                        
+                            if(is_array($householdss)){
+                                echo count($householdss);
+                            }else{
+                                echo 0;
+                            }
+							
+							?></h1>
                             <span>Households</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
@@ -316,7 +338,20 @@
 				<div class="card-single">
 					<div>
 						<a href="Statistics-profile.php?type=4&year=<?php echo $year; ?>">
-                            <h1><?php echo $men; ?></h1>
+                            <h1><?php 
+							
+							
+                            $gender = "M";
+                            $menrows = $model->fetchProfiles4_5($gender);
+                            
+                     
+                            
+                            if(is_array($menrows)){
+                                echo count($menrows);
+                            }else{
+                                echo 0;
+                            }
+							?></h1>
                             <span>Men</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
@@ -330,7 +365,20 @@
 				<div class="card-single">
 					<div>
 						<a href="Statistics-profile.php?type=5&year=<?php echo $year; ?>">
-                            <h1><?php echo $men; ?></h1>
+                            <h1><?php 
+							
+							$wgender = "F";
+                            $women = $model->fetchProfiles4_5($wgender);
+                         
+                                                        
+                            if(is_array($women)){
+                                echo count($women);
+                            }else{
+                                echo 0;
+                            }
+							
+							
+							?></h1>
                             <span>Women</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>

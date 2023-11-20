@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		private $server = "localhost";
-		private $username = "root";
-		private $password = "";
-		private $dbname = "linearty";
-		private $conn;
-
 		// private $server = "localhost";
-		// private $username = "u134789687_webnever";
-		// private $password = "1#Dz=q![?AiJ";
-		// private $dbname = "u134789687_webnever";
+		// private $username = "root";
+		// private $password = "";
+		// private $dbname = "linearty";
 		// private $conn;
+
+		private $server = "localhost";
+		private $username = "u134789687_webnever";
+		private $password = "1#Dz=q![?AiJ";
+		private $dbname = "u134789687_webnever";
+		private $conn;
 
 
 		public function __construct() {
@@ -714,12 +714,34 @@
 		}
 		
 		
+		// public function fetchProfiles4_5($gender) {
+		// 	$data = null;
+
+		// 	$query = "SELECT b.pangalan as ftk_name, a.* FROM family_profile as a INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id WHERE b.kasarian = '$gender'";
+
+		// 	if ($stmt = $this->conn->prepare($query)) {
+		// 		$stmt->execute();
+		// 		$result = $stmt->get_result();
+		// 		$num_of_rows = $stmt->num_rows;
+		// 		while ($row = $result->fetch_assoc()) {
+		// 			$data[] = $row;
+		// 		}
+		// 		$stmt->close();
+		// 	}
+		// 	return $data;
+		// }
 		public function fetchProfiles4_5($gender) {
 			$data = null;
-
-			$query = "SELECT b.pangalan as ftk_name, a.* FROM family_profile as a INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id WHERE b.kasarian = '$gender'";
-
+		
+			$year = $_GET['year'] ?? $_POST['year'] ?? '2023'; // Set 2023 as the default year if not provided
+		
+			$query = "SELECT b.pangalan as ftk_name, a.* 
+					  FROM family_profile as a 
+					  INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id 
+					  WHERE b.kasarian = ? AND YEAR(a.petsa) = ? AND a.status = 'Approved'";
+		
 			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->bind_param('ss', $gender, $year);
 				$stmt->execute();
 				$result = $stmt->get_result();
 				$num_of_rows = $stmt->num_rows;
@@ -728,15 +750,40 @@
 				}
 				$stmt->close();
 			}
+		
 			return $data;
 		}
 		
+		
+		
+		// public function fetchProfiles6_7_8_9_10($status) {
+		// 	$data = null;
+
+		// 	$query = "SELECT b.pangalan as ftk_name,a.* FROM family_profile as a INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id WHERE b.status = '$status'";
+
+		// 	if ($stmt = $this->conn->prepare($query)) {
+		// 		$stmt->execute();
+		// 		$result = $stmt->get_result();
+		// 		$num_of_rows = $stmt->num_rows;
+		// 		while ($row = $result->fetch_assoc()) {
+		// 			$data[] = $row;
+		// 		}
+		// 		$stmt->close();
+		// 	}
+		// 	return $data;
+		// }
 		public function fetchProfiles6_7_8_9_10($status) {
 			$data = null;
-
-			$query = "SELECT b.pangalan as ftk_name,a.* FROM family_profile as a INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id WHERE b.status = '$status'";
-
+		
+			$year = $_GET['year'] ?? $_POST['year'] ?? '2023'; // Set 2023 as the default year if not provided
+		
+			$query = "SELECT b.pangalan as ftk_name, a.* 
+					  FROM family_profile as a 
+					  INNER JOIN family_talaan_kabahayan as b ON a.id = b.profile_id 
+					  WHERE b.status = ? AND YEAR(a.petsa) = ? AND a.status = 'Approved'";
+		
 			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->bind_param('ss', $status, $year);
 				$stmt->execute();
 				$result = $stmt->get_result();
 				$num_of_rows = $stmt->num_rows;
@@ -745,15 +792,28 @@
 				}
 				$stmt->close();
 			}
+		
 			return $data;
 		}
+		
+
+
 		
 		public function fetchProfiles11() {
 			$data = null;
-
-			$query = "SELECT * FROM family_talaan_kabataan WHERE kapanganakan >= DATE_SUB(NOW(), INTERVAL 9 MONTH) AND kapanganakan <= DATE_SUB(NOW(), INTERVAL 1 MONTH);";
-
+		
+			$year = $_GET['year'] ?? $_POST['year'] ?? '2023'; // Set 2023 as the default year if not provided
+			$familyStatus = 'Approved';
+		
+			$query = "SELECT * 
+					  FROM family_talaan_kabataan 
+					  WHERE kapanganakan >= DATE_SUB(NOW(), INTERVAL 9 MONTH) 
+						AND kapanganakan <= DATE_SUB(NOW(), INTERVAL 1 MONTH) 
+						AND YEAR(kapanganakan) = ? 
+						AND family_status = ?";
+		
 			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->bind_param('ss', $year, $familyStatus);
 				$stmt->execute();
 				$result = $stmt->get_result();
 				$num_of_rows = $stmt->num_rows;
@@ -762,8 +822,10 @@
 				}
 				$stmt->close();
 			}
+		
 			return $data;
 		}
+		
 		
 		
 		public function addStructure($name, $email, $password, $position, $base, $unique, $rendered_service, $status) {
@@ -838,14 +900,20 @@
 		public function totalPopQry() {
 			$data = null;
 		
-			$year = $_GET['year'] ?? null;
+			if(!empty($_POST['year'])){
+				$year = $_POST['year'] ?? null;
+			}else if(!empty($_GET['year'] )){
+				$year = $_GET['year'] ?? null;
+			}else{
+				$year = '2023';
+			}
 			$yearFilter = '';
 		
 			if ($year !== null) {
 				$next_year = intval($year) + 1;
 				$yearFilter = " AND DATE(family_profile.petsa) >= '$year-01-01' AND DATE(family_profile.petsa) < '$next_year-01-01'";
 			}
-		
+			
 			$query = "SELECT family_talaan_kabahayan.id, family_talaan_kabahayan.pangalan , family_profile.house_no, family_profile.contact_no, family_profile.house_no, family_profile.requirement, family_profile.petsa, family_profile.status
 				FROM family_talaan_kabahayan
 				LEFT JOIN family_profile ON family_talaan_kabahayan.profile_id = family_profile.id WHERE family_profile.status = 'Approved'$yearFilter;";
@@ -856,7 +924,7 @@
 				}
 				$result->close();
 			}
-		
+			
 			return $data;
 		}
 		

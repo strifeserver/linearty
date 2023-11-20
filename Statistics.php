@@ -203,20 +203,20 @@
 <!--start nung main view nung lahat nung statistics-->
         <main class="stats-main">
             <form method="POST">
-                <!--<div class="stats-header">-->
-                <!--    <h3>Current Statistics</h3>-->
-                <!--    <button type="submit" name="generate_statistics">Generate Statistics..<span class="bx bxs-pencil"></span></button>-->
-                <!--    <select name="year" required>-->
-                <!--        <option value="" disabled selected>Select Year</option>-->
-                <!--        <option value="All">All</option>-->
-                <!--        <option value="2023" <?php if ($_POST['year'] == '2023') {echo 'selected'; } ?>>2023</option>-->
-                <!--        <option value="2024" <?php if ($_POST['year'] == '2024') {echo 'selected'; } ?>>2024</option>-->
-                <!--        <option value="2025" <?php if ($_POST['year'] == '2025') {echo 'selected'; } ?>>2025</option>-->
-                <!--        <option value="2026" <?php if ($_POST['year'] == '2026') {echo 'selected'; } ?>>2026</option>-->
-                <!--        <option value="2027" <?php if ($_POST['year'] == '2027') {echo 'selected'; } ?>>2027</option>-->
-                <!--        <option value="2028" <?php if ($_POST['year'] == '2028') {echo 'selected'; } ?>>2028</option>-->
-                <!--      </select>-->
-                <!--</div>-->
+                <div class="stats-header">
+                   <h3>Current Statistics</h3>
+                   <button type="submit" name="generate_statistics">Generate Statistics..<span class="bx bxs-pencil"></span></button>
+                   <select name="year" required>
+                       <option value="" disabled selected>Select Year</option>
+                       <option value="All">All</option>
+                       <option value="2023" <?php if (@$_POST['year'] == '2023') {echo 'selected'; } ?>>2023</option>
+                       <option value="2024" <?php if (@$_POST['year'] == '2024') {echo 'selected'; } ?>>2024</option>
+                       <option value="2025" <?php if (@$_POST['year'] == '2025') {echo 'selected'; } ?>>2025</option>
+                       <option value="2026" <?php if (@$_POST['year'] == '2026') {echo 'selected'; } ?>>2026</option>
+                       <option value="2027" <?php if (@$_POST['year'] == '2027') {echo 'selected'; } ?>>2027</option>
+                       <option value="2028" <?php if (@$_POST['year'] == '2028') {echo 'selected'; } ?>>2028</option>
+                     </select>
+                </div>
             </form>
           
             <?php
@@ -232,6 +232,8 @@
                         $active_residents = $stat_row['active_residents'];
                         $infants = $stat_row['infants'];
                         $infants_count = $stat_row['infants']; // infants count
+                        $inactive_residents = $stat_row['inactive_residents'];
+                     
                         
                         $households = $stat_row['households'];
                         $men = $stat_row['men'];
@@ -300,7 +302,7 @@
                                 foreach ($stat_rows as $stat_row) {
                                     $total_population = $stat_row['total_population'];
                                     $active_residents = $stat_row['active_residents'];
-                              
+                                    $inactive_residents = $stat_row['inactive_residents'];
                                     $infants = $stat_row['infants'];
                                     $households = $stat_row['households'];
                                     $men = $stat_row['men'];
@@ -311,14 +313,14 @@
                                     $out_of_school = $stat_row['out_of_school'];
                                     $unemployed = $stat_row['unemployed'];
                                     
-                                        $stat_rows = $model->countPopulationMFYear();
-                                        if (!empty($stat_rows)) {
-                                            foreach ($stat_rows as $stat_row) {
-                                                $men = $stat_row['men'];
-                                                $females = $stat_row['females'];
-                                                $total_population = $men + $females;
-                                            }
-                                        }
+                                        // $stat_rows = $model->countPopulationMFYear();
+                                        // if (!empty($stat_rows)) {
+                                        //     foreach ($stat_rows as $stat_row) {
+                                        //         $men = $stat_row['men'];
+                                        //         $females = $stat_row['females'];
+                                        //         $total_population = $men + $females;
+                                        //     }
+                                        // }
                                 }
                             }
                             else {
@@ -548,13 +550,22 @@
                     <div>
                         <a href="Statistics-profile.php?type=12&year=<?php echo $year; ?>">
                             <h1><?php 
-                            
+                      
                             $inactive_residents = $stat_row['inactive_residents'];
                             echo $inactive_residents;
                             
                             ?></h1>
                             <span>Inactive Residents</span>
-                            <small>Year: <?php echo $year-1; ?></small>
+                            <small>Year: <?php 
+                            
+                            if(!empty($year) && $year != 'All'){
+                               
+                                echo $year-1; 
+                            }else{
+                                echo 'All';
+                            }
+                            
+                            ?></small>
                         </a>
                     </div>
 

@@ -253,45 +253,90 @@
 			return $data;
 		}
 		
-		public function fetchStatisticsByYear($year) {
-			$data = null;
+	// 	public function fetchStatisticsByYear($year) {
+	// 		$data = null;
 			
-			$next_year = intval($year) + 1;
+	// 		$next_year = intval($year) + 1;
 
-            $query = "SELECT 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) + 
-    (SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS total_population, 
-    (SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS households, 
-    (SELECT COUNT(*) FROM (
-        SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
-        UNION ALL 
-        SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
-    ) combined_tables) AS men, 
-    (SELECT COUNT(*) FROM (
-        SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
-        UNION ALL 
-        SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
-    ) combined_tables) AS females, 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Senior' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS senior, 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'PWD' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS pwd, 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Solo-Parent' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS solo_parents, 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'School Dropout' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS out_of_school, 
-    (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Unemployed' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS unemployed,
-    (SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS infants,
-    (SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS active_residents;";
+    //         $query = "SELECT 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) + 
+    // (SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS total_population, 
+    // (SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS households, 
+    // (SELECT COUNT(*) FROM (
+    //     SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
+    //     UNION ALL 
+    //     SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
+    // ) combined_tables) AS men, 
+    // (SELECT COUNT(*) FROM (
+    //     SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
+    //     UNION ALL 
+    //     SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
+    // ) combined_tables) AS females, 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Senior' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS senior, 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'PWD' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS pwd, 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Solo-Parent' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS solo_parents, 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'School Dropout' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS out_of_school, 
+    // (SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Unemployed' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS unemployed,
+    // (SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS infants,
+    // (SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS active_residents;";
 
-			if ($stmt = $this->conn->prepare($query)) {
-			    $stmt->bind_param('s', $year);
-				$stmt->execute();
-				$result = $stmt->get_result();
-				$num_of_rows = $stmt->num_rows;
-				while ($row = $result->fetch_assoc()) {
-					$data[] = $row;
-				}
-				$stmt->close();
+	// 		if ($stmt = $this->conn->prepare($query)) {
+	// 		    $stmt->bind_param('s', $year);
+	// 			$stmt->execute();
+	// 			$result = $stmt->get_result();
+	// 			$num_of_rows = $stmt->num_rows;
+	// 			while ($row = $result->fetch_assoc()) {
+	// 				$data[] = $row;
+	// 			}
+	// 			$stmt->close();
+	// 		}
+
+			
+	// 		return $data;
+	// 	}
+	public function fetchStatisticsByYear($year) {
+		$data = null;
+		
+		$next_year = intval($year) + 1;
+
+		$query = "SELECT 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) + 
+			(SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS total_population, 
+			(SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS households, 
+			(SELECT COUNT(*) FROM (
+				SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
+				UNION ALL 
+				SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'M' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
+			) combined_tables) AS men, 
+			(SELECT COUNT(*) FROM (
+				SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabahayan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') 
+				UNION ALL 
+				SELECT kasarian COLLATE utf8mb4_unicode_ci as kasarian FROM family_talaan_kabataan WHERE kasarian = 'F' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')
+			) combined_tables) AS females, 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Senior' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS senior, 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'PWD' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS pwd, 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Solo-Parent' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS solo_parents, 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'School Dropout' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS out_of_school, 
+			(SELECT COUNT(*) FROM family_talaan_kabahayan WHERE status = 'Unemployed' AND profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS unemployed,
+			(SELECT COUNT(*) FROM family_talaan_kabataan WHERE profile_id IN (SELECT id FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01')) AS infants,
+			(SELECT COUNT(*) FROM family_profile WHERE status = 'Approved' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS active_residents,
+			(SELECT COUNT(*) FROM family_profile WHERE status = 'inactive' AND DATE(petsa) >= '".$year."-01-01' AND DATE(petsa) < '".$next_year."-01-01') AS inactive_residents
+			;";
+
+		if ($stmt = $this->conn->prepare($query)) {
+			// $stmt->bind_param('s', $year);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$num_of_rows = $stmt->num_rows;
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
 			}
-			return $data;
+			$stmt->close();
 		}
+
+		
+		return $data;
+	}
 		
 		public function fetchAdminEmailID($email) {
 			$query = "SELECT id FROM admin WHERE email = ? LIMIT 1";
@@ -645,20 +690,27 @@
 		
 		public function fetchProfiles2() {
 			$data = null;
-
-			$query = "SELECT * FROM family_profile WHERE status = 'Approved'";
-
-			if ($stmt = $this->conn->prepare($query)) {
-				$stmt->execute();
-				$result = $stmt->get_result();
-				$num_of_rows = $stmt->num_rows;
+		
+			$year = $_GET['year'] ?? null;
+			$yearFilter = '';
+		
+			if ($year !== null) {
+				$next_year = intval($year) + 1;
+				$yearFilter = " AND DATE(petsa) >= '$year-01-01' AND DATE(petsa) < '$next_year-01-01'";
+			}
+		
+			$query = "SELECT * FROM family_profile WHERE status = 'Approved'$yearFilter";
+		
+			if ($result = $this->conn->query($query)) {
 				while ($row = $result->fetch_assoc()) {
 					$data[] = $row;
 				}
-				$stmt->close();
+				$result->close();
 			}
+		
 			return $data;
 		}
+		
 		
 		public function fetchProfiles4_5($gender) {
 			$data = null;
@@ -783,22 +835,29 @@
 
 		public function totalPopQry() {
 			$data = null;
-
+		
+			$year = $_GET['year'] ?? null;
+			$yearFilter = '';
+		
+			if ($year !== null) {
+				$next_year = intval($year) + 1;
+				$yearFilter = " AND DATE(family_profile.petsa) >= '$year-01-01' AND DATE(family_profile.petsa) < '$next_year-01-01'";
+			}
+		
 			$query = "SELECT family_talaan_kabahayan.id, family_talaan_kabahayan.pangalan , family_profile.house_no, family_profile.contact_no, family_profile.house_no, family_profile.requirement, family_profile.petsa, family_profile.status
-			FROM family_talaan_kabahayan
-			LEFT JOIN family_profile ON family_talaan_kabahayan.profile_id = family_profile.id;";
-
-			if ($stmt = $this->conn->prepare($query)) {
-				$stmt->execute();
-				$result = $stmt->get_result();
-				$num_of_rows = $stmt->num_rows;
+				FROM family_talaan_kabahayan
+				LEFT JOIN family_profile ON family_talaan_kabahayan.profile_id = family_profile.id WHERE family_profile.status = 'Approved'$yearFilter;";
+	
+			if ($result = $this->conn->query($query)) {
 				while ($row = $result->fetch_assoc()) {
 					$data[] = $row;
 				}
-				$stmt->close();
+				$result->close();
 			}
+		
 			return $data;
 		}
+		
 
 
 		public function inactiveResidents() {

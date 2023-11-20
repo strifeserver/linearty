@@ -48,8 +48,9 @@
         }
 
         .modal-content{
-            width: 1100px;
-            margin-left:20%;
+            width: 960px;
+            margin-left: 20%;
+            margin-top: 10%;
         }
     </style>
 </head>

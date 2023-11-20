@@ -30,7 +30,7 @@
                                 $i = 1;
                             
                                 $rows = $model->totalPopQry();
-                            
+                                
                                 if (!empty($rows)) {
                                     foreach ($rows as $row) {
                             ?>

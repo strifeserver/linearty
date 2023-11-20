@@ -690,24 +690,26 @@
 		
 		public function fetchProfiles2() {
 			$data = null;
-		
-			$year = $_GET['year'] ?? null;
+			if(!empty($_POST['year'])){
+				$year = $_POST['year'] ?? null;
+			}else if(!empty($_GET['year'] )){
+				$year = $_GET['year'] ?? null;
+			}else{
+				$year = '2023';
+			}
 			$yearFilter = '';
-		
 			if ($year !== null) {
 				$next_year = intval($year) + 1;
 				$yearFilter = " AND DATE(petsa) >= '$year-01-01' AND DATE(petsa) < '$next_year-01-01'";
 			}
-		
 			$query = "SELECT * FROM family_profile WHERE status = 'Approved'$yearFilter";
-		
+
 			if ($result = $this->conn->query($query)) {
 				while ($row = $result->fetch_assoc()) {
 					$data[] = $row;
 				}
 				$result->close();
 			}
-		
 			return $data;
 		}
 		

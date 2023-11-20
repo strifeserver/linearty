@@ -408,7 +408,8 @@
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=2&year=<?php echo $year; ?>">
-                            <h1><?php echo @count($active_residentsv1) ?? 0; ?></h1>
+               
+                            <h1><?php echo @count($model->fetchProfiles2()) ?? 0; ?></h1>
                             <span>Active Residents</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>

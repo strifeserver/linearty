@@ -30,6 +30,7 @@
                                 $i = 1;
                             
                                 $rows = $model->fetchProfiles2();
+                              
                                 // $rows = $model->activeResidents();
                             
                                 if (!empty($rows)) {

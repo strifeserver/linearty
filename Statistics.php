@@ -6,14 +6,21 @@
 	$model = new Model();
 
 	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
-	
+	$currentYearSet = $model->fetchGeneratedYearDisplaySetting();
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
 	        $admin_username = $admin_row['username'];
 	        $admin_profile = ($admin_row['profile_picture'] != null) ? $admin_row['profile_picture'] : 'default';
 	        $admin_type = $admin_row['type'];
 	    }
-	}
+	}else{
+        $_POST['year'] = $currentYearSet;
+        $_GET['year'] = $currentYearSet;
+
+   
+    }
+    $year = $currentYearSet;
+
 
 ?>
 <!DOCTYPE html>
@@ -298,10 +305,18 @@
                 }
                 
 	
-                $year = "2023";
+                
                 if (isset($_POST['generate_statistics'])) {
                     $year = $_POST['year'];
                     
+
+                    
+            
+                    if($year != 'All'){
+                        $setDisplayYear = $model->updateGeneratedYearDisplaySetting($year);
+                    }
+
+
                     if ($year != 'All') {
                             $stat_rows = $model->fetchStatisticsByYear($year);
                             if (!empty($stat_rows)) {

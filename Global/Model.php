@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		// private $server = "localhost";
-		// private $username = "root";
-		// private $password = "";
-		// private $dbname = "linearty";
-		// private $conn;
-
 		private $server = "localhost";
-		private $username = "u134789687_webnever";
-		private $password = "1#Dz=q![?AiJ";
-		private $dbname = "u134789687_webnever";
+		private $username = "root";
+		private $password = "";
+		private $dbname = "linearty";
 		private $conn;
+
+		// private $server = "localhost";
+		// private $username = "u134789687_webnever";
+		// private $password = "1#Dz=q![?AiJ";
+		// private $dbname = "u134789687_webnever";
+		// private $conn;
 
 
 		public function __construct() {
@@ -805,12 +805,13 @@
 			$year = $_GET['year'] ?? $_POST['year'] ?? '2023'; // Set 2023 as the default year if not provided
 			$familyStatus = 'Approved';
 		
-			$query = "SELECT * 
+			$query = "SELECT family_talaan_kabataan.pangalan, family_talaan_kabataan.kapanganakan, family_talaan_kabataan.kasarian, family_talaan_kabataan.bakuna, family_profile.house_no, family_profile.contact_no, family_profile.petsa, family_profile.status
 					  FROM family_talaan_kabataan 
+					  LEFT JOIN family_profile on family_profile.id =  family_talaan_kabataan.profile_id
 					  WHERE kapanganakan >= DATE_SUB(NOW(), INTERVAL 9 MONTH) 
 						AND kapanganakan <= DATE_SUB(NOW(), INTERVAL 1 MONTH) 
 						AND YEAR(kapanganakan) = ? 
-						AND family_status = ?";
+						AND family_profile.status  = ?";
 		
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->bind_param('ss', $year, $familyStatus);
@@ -822,7 +823,6 @@
 				}
 				$stmt->close();
 			}
-		
 			return $data;
 		}
 		
@@ -924,6 +924,15 @@
 				}
 				$result->close();
 			}
+
+
+			$infants = $this->fetchProfiles11();
+			if(!empty($infants)){
+				foreach ($infants as $keya => $valuea) {
+					$data[] = $valuea;
+				}
+			}
+
 			
 			return $data;
 		}
@@ -1039,6 +1048,38 @@
 				$stmt->close();
 			}
 		}
+
+		public function fetchGeneratedYearDisplaySetting() {
+			$data = null;
+		
+			$query = "SELECT * FROM settings WHERE setting_name = 'generated_year_display'";
+		
+			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->execute();
+				$result = $stmt->get_result();
+				while ($row = $result->fetch_assoc()) {
+					$data = $row['setting_value'];
+				}
+				$stmt->close();
+			}
+			return $data;
+		}
+		
+		public function updateGeneratedYearDisplaySetting($year) {
+			$query = "UPDATE settings SET setting_value = ? WHERE setting_name = 'generated_year_display'";
+		
+			if ($stmt = $this->conn->prepare($query)) {
+				$stmt->bind_param("s", $year);
+				$stmt->execute();
+				$stmt->close();
+				return true; // or you can return $stmt->affected_rows to check the number of affected rows
+			} else {
+				return false;
+			}
+		}
+		
+
+
 		
 		
 	}

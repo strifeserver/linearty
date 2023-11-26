@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		// private $server = "localhost";
-		// private $username = "root";
-		// private $password = "";
-		// private $dbname = "linearty";
-		// private $conn;
-
 		private $server = "localhost";
-		private $username = "u134789687_webnever";
-		private $password = "1#Dz=q![?AiJ";
-		private $dbname = "u134789687_webnever";
+		private $username = "root";
+		private $password = "";
+		private $dbname = "linearty";
 		private $conn;
+
+		// private $server = "localhost";
+		// private $username = "u134789687_webnever";
+		// private $password = "1#Dz=q![?AiJ";
+		// private $dbname = "u134789687_webnever";
+		// private $conn;
 
 
 		public function __construct() {

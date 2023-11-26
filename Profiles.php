@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 use Twilio\Rest\Client;
 
 $accountSid = 'AC7e2863931cfad9261ddbfdee59a66f13';
-$authToken = 'af5cd311eb3551db88cda47f7cdd1750';
+$authToken = 'd46d3f0010bbc139492d1f2bd2865ebc';
 
 $client = new Client($accountSid, $authToken);
 

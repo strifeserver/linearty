@@ -451,12 +451,12 @@
 						<td> 
 
 							<div class="form-field">
-								<h3 style="font-weight: bold;">Katayuan</h3>
+								<h3 style="font-weight: bold;">Katayuan Sibil</h3>
 								<div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> 
 							</div>
 
 							<div class="form-field">
-								<h3 style="font-weight: bold;">Katayuan Sibil</h3>
+								<h3 style="font-weight: bold;">Relasyon</h3>
 								<div class="input"> <input type="text" name="kabahayan_relationship[]" placeholder="Relationship" required> </div>
 							</div>
 
@@ -469,14 +469,14 @@
 							<div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div>
 						</div>
 						<div class="form-field">
-							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<h3 style="font-weight: bold;">Taon ng Paninirahan sa Brgy</h3>
 							<div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" required> </div>
 						</div>
 
 						</td>
 						<td> 
 						<div class="form-field">
-							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<h3 style="font-weight: bold;">Senior/Pwd/Solo/Parent/Out of/School/Unemployed</h3>
 							<div class="input"> 
 								<select class="select-input" name="kabahayan_status[]">
 									<option value="" disabled="" selected="">Select option</option>

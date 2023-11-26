@@ -248,6 +248,66 @@ if (!empty($profile_rows)) {
         ?>
 <!------ ADMIN PROFILE  -------------------------------------------------------------->
 		</header>
+		<style>
+
+
+.form-field{
+		height: 80px;
+	}
+	.select-input{
+		outline: none;
+		font-size: 13px;
+		font-weight: 500;
+		color: #333;
+		border: 1px solid #aaa;
+		border-radius: 5px;
+		padding: 0 15px;
+		height: 42px;
+		margin: 8px 0;
+	}
+
+
+	input[type="checkbox"] {
+		width: 25px;
+	}
+
+	/* Styles for the custom file input container */
+	.file-input-container {
+	display: inline-block;
+	position: relative;
+	}
+
+	/* Styles for the custom file input button */
+	.custom-file-input {
+	background-color: var(--vermain-color);
+	width: fit-content;
+	margin-left: 5px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 13px;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid var(--vermain-color);
+	}
+
+	/* Hide the original file input */
+	input[type="file"] {
+	display: none;
+	}
+
+	.btn{
+	background-color: var(--vermain-color);
+    width: fit-content;
+    margin-left: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+    padding: .5rem ;
+    border: 1px solid var(--vermain-color);
+}
+
+		</style>
 <!------ TOP NAV BAR ENDS ----------------------------------------------------------------------------------------->
 
 <!------ FAMILY PAPER START DITO START---------------------------------------------------------------------------------------->
@@ -333,7 +393,7 @@ if (!empty($profile_rows)) {
 			<table>
 				<thead>
 					<tr>
-							<th>ID</th>
+							<!-- <th>ID</th>
 							<th>Pangalan</th>
 							<th>Kapanganakan</th>
 							<th>Edad</th>
@@ -343,7 +403,7 @@ if (!empty($profile_rows)) {
 							<th>Hanapbuhay</th>
 							<th>Taon ng paninirahan</th>
 							<th>PWD/Senior/Solo-Parent/School Dropout/Unemployed</th>
-							<th>Action</th>
+							<th>Action</th> -->
 					</tr>
 				</thead>
 
@@ -359,7 +419,90 @@ if (!empty($profile_rows)) {
             foreach ($kabahayan_rows as $kabahayan_row) {
 
                 ?>
-					<tr id="krow<?php echo $i; ?>">
+
+
+
+<tr>
+						<!-- <td>1</td> -->
+						<td> 
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Pangalan</h3>
+								<div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname"  required value="<?php echo $kabahayan_row['pangalan']; ?>"> </div> 
+							</div>
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Kapanganakan</h3>
+								<div class="input"> <input type="date"  name="kabahayan_dob[]" placeholder="Date of Birth" required value="<?php echo $kabahayan_row['kapanganakan']; ?>"> </div> 
+							</div>
+
+						</td>
+						<td> 
+
+							<div class="form-field">
+							<h3 style="font-weight: bold;">Edad</h3>
+							<div class="input"> <input type="number"  name="kabahayan_age[]" placeholder="Age" required value="<?php echo $kabahayan_row['edad']; ?>"> </div>
+							</div>
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Kasarian</h3>
+								<div class="input"> <select  class="select-input" name="kabahayan_gender[]" required><option value="" disabled="" selected="">Select gender</option><option value="M" <?php if ($kabahayan_row['kasarian'] == 'M') {echo 'selected';}?>>Male</option><option value="F" <?php if ($kabahayan_row['kasarian'] == 'F') {echo 'selected';}?>>Female</option></select></div></div> 
+							</div>
+						</td>
+						<td> 
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Katayuan Sibil</h3>
+								<div class="input"> <input type="text"  name="kabahayan_civil[]" placeholder="Civil Status" required value="<?php echo $kabahayan_row['katayuan_sibil']; ?>"> </div> 
+							</div>
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Relasyon</h3>
+								<div class="input"> <input type="text"  name="kabahayan_relationship[]" placeholder="Relationship" required value="<?php echo $kabahayan_row['relasyon']; ?>"> </div>
+							</div>
+
+
+						</td>
+						<td>
+
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<div class="input"> <input type="text"  name="kabahayan_occupation[]" placeholder="Occupation" required value="<?php echo $kabahayan_row['hanapbuhay']; ?>"> </div>
+						</div>
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Taon ng Paninirahan sa Brgy</h3>
+							<div class="input"> <input type="date"  name="kabahayan_year[]" placeholder="Year of Residency" required value="<?php echo $kabahayan_row['paninirahan']; ?>"> </div>
+						</div>
+
+						</td>
+						<td> 
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Senior/Pwd/Solo/Parent/Out of/School/Unemployed</h3>
+							<div class="input"> 
+								<select class="select-input" name="kabahayan_status[]">
+									<option value="" disabled="" selected="">Select option</option>
+									<option value="PWD" <?php if ($kabahayan_row['status'] == 'PWD') {echo 'selected';}?>>PWD</option>
+									<option value="Senior" <?php if ($kabahayan_row['status'] == 'Senior') {echo 'selected';}?>>Senior</option>
+									<option value="Solo-Parent" <?php if ($kabahayan_row['status'] == 'Solo-Parent') {echo 'selected';}?>>Solo-Parent</option>
+									<option value="School Dropout" <?php if ($kabahayan_row['status'] == 'School Dropout') {echo 'selected';}?>>School Dropout</option>
+									<option value="Unemployed" <?php if ($kabahayan_row['status'] == 'Unemployed') {echo 'selected';}?>>Unemployed</option>
+								</select>
+						 	</div>
+						</div>
+
+						</td>
+	
+						<td class=""><button type="button" id="talaan-kabahayan-add" class="btn">+</button></td>
+					</tr>
+
+
+
+
+
+
+
+
+
+
+					<tr id="krow<?php echo $i; ?>" hidden>
 						<td><?php echo $i; ?></td>
 						<td> <div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname" value="<?php echo $kabahayan_row['pangalan']; ?>" required> </div> </td>
 						<td> <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" value="<?php echo $kabahayan_row['kapanganakan']; ?>" required> </div> </td>
@@ -383,13 +526,13 @@ if (!empty($profile_rows)) {
                 if ($i == 1) {
 
                     ?>
-						<td><button type="button" id="talaan-kabahayan-add">+</button></td>
+						<td><button type="button" id="talaan-kabahayan-add" class="btn">+</button></td>
 						<?php
 
                 } else {
 
                     ?>
-						<td><button type="button" data-id="<?php echo $i; ?>" class="kabahayan_remove">-</button></td>
+						<td><button type="button" data-id="<?php echo $i; ?>" class="kabahayan_remove btn">-</button></td>
 						<?php
 
                 }

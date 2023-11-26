@@ -236,7 +236,7 @@ $officials = $model->fetchPunongBrgy(1);
 
 	<div style="margin-top:10%;">
 	
-		<center><h2>Officials</h2></center>
+		<center><h2>Barangay Officials</h2></center>
 	</div>
 
 

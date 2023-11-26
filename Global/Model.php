@@ -200,7 +200,7 @@
 		public function fetchProfiles() {
 			$data = null;
 
-			$query = "SELECT * FROM family_profile";
+			$query = "SELECT * FROM family_profile ORDER BY `family_profile`.`status` DESC";
 
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->execute();

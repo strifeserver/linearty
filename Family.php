@@ -188,6 +188,16 @@
 	display: none;
 	}
 
+.btn{
+	background-color: var(--vermain-color);
+    width: fit-content;
+    margin-left: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+    padding: .5rem ;
+    border: 1px solid var(--vermain-color);
+}
 </style>
 <?php try { ?>
 <body>
@@ -492,7 +502,7 @@
 
 						</td>
 	
-						<td><button type="button" id="talaan-kabahayan-add">+</button></td>
+						<td class=""><button type="button" id="talaan-kabahayan-add" class="btn">+</button></td>
 					</tr>
 				</tbody>
 

@@ -104,6 +104,9 @@
         }
 
 
+
+
+
         body{
             background-image: url("images/bgwbanoverlay.jpg");
             background-position: right -80px;
@@ -121,6 +124,37 @@
 
             background-color: #00000000;
         }
+
+
+
+	/* Styles for the custom file input container */
+	.file-input-container {
+	display: inline-block;
+	position: relative;
+	}
+
+	/* Styles for the custom file input button */
+	.custom-file-input {
+	background-color: var(--vermain-color);
+	width: fit-content;
+	margin-left: 5px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 13px;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid var(--vermain-color);
+	}
+
+	/* Hide the original file input */
+	input[type="file"] {
+	display: none;
+	}
+
+
+
+
 
 </style>
 <body>
@@ -382,7 +416,16 @@
           <h2>Add Event</h2>
           <form method="POST" enctype="multipart/form-data">
             <label for="upload">Event Image</label>
-            <input type="file" name="event_image" id="upload" required>
+
+            <div class="file-input-container">
+                <label for="upload" class="custom-file-input">
+                    Choose Upload File
+                </label>
+                <input type="file" id="upload" name="event_image" style="padding-top: 8px;" required>
+            </div>
+
+
+            <!-- <input type="file" name="event_image" id="upload" required> -->
               
             <label for="event">Event</label>
             <input type="text" id="event" name="event_name" placeholder="Event name" required>

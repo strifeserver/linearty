@@ -46,6 +46,8 @@ document.getElementById('doc').addEventListener('change', function() {
             upload += 'Valid ID';
     }
     // document.getElementById('file-upload').innerHTML = '<label for="upload">'+upload+'</label><input type="file" name="requirement" id="upload" required>';
-    document.getElementById('file-upload').innerHTML = '<label for="upload">'+upload+'</label><div class="file-input-container"><label for="upload" class="custom-file-input">Choose Upload File</label><input type="file" id="upload" name="requirement" style="padding-top: 8px;" required></div>';
+    document.getElementById('file-upload').innerHTML = '<label for="upload">'+upload+'</label><div class="file-input-container"><label for="upload" class="custom-file-input">Choose Upload File</label><input type="file" name="requirement" id="upload" required></input></div>';
+
+
 });
 });

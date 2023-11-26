@@ -792,7 +792,7 @@
 							<label for="gov_id" class="custom-file-input">
 								Choose Upload File
 							</label>
-							<input type="file" id="gov_id" name="gov_id" style="padding-top: 8px;" required>
+							<input id="gov_id" type="file" name="gov_id" style="padding-top: 8px;" required>
 						</div>
 
 

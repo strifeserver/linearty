@@ -43,6 +43,35 @@
 </head>
 
 <body>
+	<style>
+
+	/* Styles for the custom file input container */
+	.file-input-container {
+	display: inline-block;
+	position: relative;
+	}
+
+	/* Styles for the custom file input button */
+	.custom-file-input {
+	background-color: var(--vermain-color);
+	width: fit-content;
+	margin-left: 5px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 13px;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid var(--vermain-color);
+	}
+
+	/* Hide the original file input */
+	input[type="file"] {
+	display: none;
+	}
+
+
+	</style>
 	<form method="POST" enctype="multipart/form-data">
 <!------ ANIMATED SIDE NAV BAR START ------------------------------------------------------------------------------>
 	<input type="checkbox" id="nav-toggle">
@@ -219,7 +248,18 @@
 				
 				<div class="fam-fields">
 					<label for="">GOVERNMENT ID:</label>
-					<div class="fam-txt"> <input type="file" name="gov_id" style="padding-top: 8px;" required> </div>
+					<!-- <div class="fam-txt"> <input type="file" name="gov_id" style="padding-top: 8px;" required> </div> -->
+
+					<div class="file-input-container">
+						<label for="gov_id" class="custom-file-input">
+							Choose Upload File
+						</label>
+						<input input id="gov_id" type="file" name="gov_id" style="padding-top: 8px;" required>
+					</div>
+
+
+
+
 				</div>
 			</div>
 

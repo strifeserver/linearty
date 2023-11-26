@@ -224,9 +224,9 @@
                                 <img id="display-img" style="width: 200px; height: 200px; object-fit: cover;">
                                 <br>
                                 <label class="col-form-label"><b>Photo</b></label>
-                                <input class="form-control" type="file" name="image" accept="image/*" onchange="readURL(this)" style="border: 0px; padding: 0px;" required>
+                                <!-- <input class="form-control" type="file" name="image" accept="image/*" onchange="readURL(this)" style="border: 0px; padding: 0px;" required> -->
 
-								<div class="file-input-container"><label for="upload" class="custom-file-input" style="color: white;">Choose Upload File</label><input type="file" id="upload" name="requirement" style="padding-top: 8px;" required></div>
+								<div class="file-input-container"><label for="upload" class="custom-file-input" style="color: white;">Choose Upload File</label><input type="file" id="upload" name="image" onchange="readURL(this)" accept="image/*" style="padding-top: 8px;" required></div>
 
 
                             </div>

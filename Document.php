@@ -338,6 +338,11 @@
 	        }
 	    }
 	}
+
+
+    if (!isset($_SESSION['admin_sess'])) {
+        header("Location: https://linearty.online/create-request-document.php");
+    }
 	
 	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
 	

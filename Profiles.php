@@ -79,7 +79,9 @@ if (isset($_POST['change_request'])) {
         }
     }
 }
-
+if (!isset($_SESSION['admin_sess'])) {
+    header("Location: family.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

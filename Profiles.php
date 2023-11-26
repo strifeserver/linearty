@@ -189,6 +189,10 @@ if (@$admin_type == 'super') {
                         <a href="Document.php"><span class="bx bxs-edit"></span>
                         <span>Requests</span></a>
                     </li>
+<li>
+                        <a href="Events.php"><span class="bx bxs-edit"></span>
+                        <span>Events</span></a>
+                    </li>
 
                     <li>
                         <a href="Officials.php"><span class="bx bxs-user"></span>

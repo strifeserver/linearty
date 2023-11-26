@@ -383,6 +383,44 @@ if (!empty($admin_rows)) {
             margin-left: 30%;
             margin-top: 10%;
 	}
+
+
+
+
+
+
+
+	/* Styles for the custom file input container */
+	.file-input-container {
+	display: inline-block;
+	position: relative;
+	}
+
+	/* Styles for the custom file input button */
+	.custom-file-input {
+	background-color: var(--vermain-color);
+	width: fit-content;
+	margin-left: 5px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 13px;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid var(--vermain-color);
+	}
+
+	/* Hide the original file input */
+	input[type="file"] {
+	display: none;
+	}
+
+
+
+
+
+
+
 </style>
 <body>
 
@@ -427,6 +465,10 @@ if (!empty($admin_rows)) {
                     <li>
                         <a href="Document.php"><span class="bx bxs-edit"></span>
                         <span>Requests</span></a>
+                    </li>
+<li>
+                        <a href="Events.php"><span class="bx bxs-edit"></span>
+                        <span>Events</span></a>
                     </li>
                     
                     <li>

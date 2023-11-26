@@ -38,6 +38,13 @@
 			return 'Invalid number';
 		}
 	}
+    
+    if(isset($_POST['mode']) && $_POST['mode'] == 'delete_data'){
+        $deleteProcess = $model->deleteDocReq($_POST['id']);
+   
+        header("Refresh:0");
+    }
+
 
 	if (isset($_POST['print_certificate'])) {
 	    require_once('vendor/setasign/fpdf/fpdf.php');
@@ -354,6 +361,8 @@
 	    }
 	}
 
+
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -412,6 +421,14 @@
 		margin: 8px 0;
 	}
 
+    .swalbtn{
+        border: 0;
+        border-radius: 0.25em;
+        background: initial;
+        background-color: #2778c4;
+        color: #fff;
+        font-size: 1em;
+    }
 </style>
 <body>
 
@@ -462,6 +479,10 @@
                     <li>
                         <a href="Document.php"><span class="bx bxs-edit"></span>
                         <span>Requests</span></a>
+                    </li>
+<li>
+                        <a href="Events.php"><span class="bx bxs-edit"></span>
+                        <span>Events</span></a>
                     </li>
                     
                     <li>
@@ -575,7 +596,6 @@
                     <!--dito yung create and delete buttons-->
                     <div class="head-btn">
                         <button onclick="openLoginForm()">Create..<span class="bx bxs-pencil"></span></button>
-                        <div class="del"><button>Delete..<span class="bx bxs-trash"></span></button></div>
                     </div>
 
                 </section>
@@ -715,12 +735,21 @@
                                                 $row['date_approved'],
                                             ];
                                             $printDoc = htmlspecialchars(json_encode($printDoc), ENT_QUOTES, 'UTF-8');
+                                         
                                             ?>
-                                            <button onclick="printDocument('<?php echo $printDoc; ?>')" type="submit" name="print_certificate" <?php if ($row['status'] != "Delivered" || $row['document_type'] == "Bonafide Residence") { echo 'style="opacity: 0.6;" disabled'; } ?>>
-                                                Print <span class="bx bx-printer"></span>
-                                            </button>
 
+                                            <div class="print">
+                                                <button onclick="printDocument('<?php echo $printDoc; ?>')" type="submit" name="print_certificate" <?php if ($row['status'] != "Delivered" || $row['document_type'] == "Bonafide Residence") { echo 'style="opacity: 0.6;" disabled'; } ?>>
+                                                     <span class="bx bx-printer"></span>
+                                                </button>
+                                            </div>
+                                            <div class="del" >
+                                                <button onclick="deleteDoc('<?php echo $row['id']; ?>')" style="background-color: red !important;">
+                                                    <span class="bx bxs-trash"></span>
+                                                </button>
+                                            </div>
 
+                                            
                                     <!-- </form> -->
                                 </td>
                                 <?php
@@ -895,14 +924,6 @@ function printDocument(data1) {
     var f4 = printDocObj[5];
     var date_approved = printDocObj[6];
 
-
-
-
-
-
-
-
-
     Swal.fire({
         title: "<strong><u>Print Document</u></strong>",
         icon: "info",
@@ -922,8 +943,32 @@ function printDocument(data1) {
             <button>Submit</button>
         </form>
 
+        `,
+        showCloseButton: true,
+        showCancelButton: false,
+        focusConfirm: false,
+        confirmButtonText: "Close",
+        // cancelButtonText: "Cancel"
+    }).then((result) => {
+
+    });
+}
 
 
+
+
+
+function deleteDoc(id) {
+    Swal.fire({
+        title: "<strong><u>Delete Data?</u></strong>",
+        icon: "info",
+        html: `
+
+        <form method="POST" >
+            <input type="hidden" name="id" value="`+id+`">
+            <input type="hidden" name="mode" value="delete_data">
+            <button class="swalbtn" style="background-color:orange;">Confirm Delete?</button>
+        </form>
 
         `,
         showCloseButton: true,
@@ -932,35 +977,14 @@ function printDocument(data1) {
         confirmButtonText: "Close",
         // cancelButtonText: "Cancel"
     }).then((result) => {
-        // if (result.isConfirmed) {
-        //     var ctcNoValue = document.getElementById('ctc_no').value;
-        //     var dateIssuedValue = document.getElementById('date_issued').value;
 
-        //     $.ajax({
-        //         url: 'document.php',
-        //         type: 'POST',
-        //         data: {
-        //             doc_type: doc_type,
-        //             full_name: full_name,
-        //             f1: f1,
-        //             f2: f2,
-        //             f3: f3,
-        //             f4: f4,
-        //             date_approved: date_approved,
-        //             ctc_no: ctcNoValue,
-        //             date_issued: dateIssuedValue,
-        //         },
-        //         success: function(response) {
-        //             // Open a new tab with the response URL
-        //             window.open(response, '_blank');
-        //         },
-        //         error: function(error) {
-        //             console.error(error);
-        //             // Handle error
-        //         }
-        //     });
-        // }
     });
 }
+
+
+
+
+
+
 
 </script>

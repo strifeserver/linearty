@@ -28,6 +28,35 @@
 </head>
 
 <body>
+	<style>
+
+
+	/* Styles for the custom file input container */
+	.file-input-container {
+	display: inline-block;
+	position: relative;
+	}
+
+	/* Styles for the custom file input button */
+	.custom-file-input {
+	background-color: var(--vermain-color);
+	width: fit-content;
+	margin-left: 5px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 13px;
+	padding: .5rem 1rem;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid var(--vermain-color);
+	}
+
+	/* Hide the original file input */
+	input[type="file"] {
+	display: none;
+	}
+
+	</style>
 	<form method="POST" enctype="multipart/form-data">
 <!------ ANIMATED SIDE NAV BAR START ------------------------------------------------------------------------------>
 	<input type="checkbox" id="nav-toggle">
@@ -196,6 +225,10 @@
                                 <br>
                                 <label class="col-form-label"><b>Photo</b></label>
                                 <input class="form-control" type="file" name="image" accept="image/*" onchange="readURL(this)" style="border: 0px; padding: 0px;" required>
+
+								<div class="file-input-container"><label for="upload" class="custom-file-input" style="color: white;">Choose Upload File</label><input type="file" id="upload" name="requirement" style="padding-top: 8px;" required></div>
+
+
                             </div>
 
 							<div class="input-fields">

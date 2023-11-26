@@ -157,6 +157,10 @@ $officials = $model->fetchPunongBrgy(1);
 						<a href="create-request-document.php"><span class="bx bxs-edit"></span>
 						<span>Requests</span></a>
 					</li>
+					<li>
+                        <a href="Events.php"><span class="bx bxs-edit"></span>
+                        <span>Events</span></a>
+                    </li>
 
 					<li>
                         <a href="Officials.php"><span class="bx bxs-user"></span>

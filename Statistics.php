@@ -56,7 +56,8 @@ main{
         .card-single{
             border: 5px solid #FF10F0 ;
             /* background-color: #00a4ef7d; */
-            background-color: #ffffffd4;
+            /* background-color: #ffffffd4; */
+            background-color: white;
         }
         .table_body{
 
@@ -118,6 +119,10 @@ main{
                     <li>
                         <a href="Document.php"><span class="bx bxs-edit"></span>
                         <span>Requests</span></a>
+                    </li>
+<li>
+                        <a href="Events.php"><span class="bx bxs-edit"></span>
+                        <span>Events</span></a>
                     </li>
                     
                     <li>
@@ -639,7 +644,7 @@ main{
                     </div>
 
                     <div>
-                        <i class="fi fi-rr-backpack" style="font-size: 30px;"></i>
+                        <i class="fi fi-rr-backpack text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
@@ -693,7 +698,7 @@ main{
                     </div>
 
                     <div>
-                    <i class="fi fi-br-child-head" style="font-size: 25px;"></i>
+                    <i class="fi fi-br-child-head text-color" style="font-size: 25px;"></i>
                     </div>
                 </div>
 
@@ -733,7 +738,7 @@ main{
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <span class="las la-users text-color"></span>
                     </div>
                 </div>
 

@@ -97,9 +97,21 @@
 			}
 		}
 		
-		public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status) {
-			$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		// public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status) {
+		// 	$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+		// 	if($stmt = $this->conn->prepare($query)) {
+		// 		$stmt->bind_param('sssssssssss', $house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status);
+		// 		$stmt->execute();
+		// 		$stmt->close();
+		// 	}
+		// }
+		public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $f1, $f2, $f3, $f4, $status) {
+			// Get the current date and time
+			$date_sent = date('Y-m-d H:i:s');
+		
+			$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
 			if($stmt = $this->conn->prepare($query)) {
 				$stmt->bind_param('sssssssssss', $house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status);
 				$stmt->execute();
@@ -107,10 +119,14 @@
 			}
 		}
 		
+
+
+
+		
 		public function fetchRequests() {
 			$data = null;
 
-			$query = "SELECT * FROM document_request";
+			$query = "SELECT * FROM document_request ORDER BY `document_request`.`created_at` DESC";
 
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->execute();
@@ -1079,7 +1095,15 @@
 		}
 		
 
+		public function deleteDocReq($id) {
+			$query = "DELETE FROM document_request WHERE id = ?";
 
+			if($stmt = $this->conn->prepare($query)) {
+				$stmt->bind_param('i', $id);
+				$stmt->execute();
+				$stmt->close();
+			}
+		}
 		
 		
 	}

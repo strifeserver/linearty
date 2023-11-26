@@ -59,7 +59,9 @@ $officials = $model->fetchPunongBrgy(1);
 }
 
 
-
+.card-single{
+	border: 5px solid #FF10F0;
+}
 .column {
             float: left;
             width: 50%;

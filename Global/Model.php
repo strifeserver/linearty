@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		private $server = "localhost";
-		private $username = "root";
-		private $password = "";
-		private $dbname = "linearty";
-		private $conn;
-
 		// private $server = "localhost";
-		// private $username = "u134789687_webnever";
-		// private $password = "1#Dz=q![?AiJ";
-		// private $dbname = "u134789687_webnever";
+		// private $username = "root";
+		// private $password = "";
+		// private $dbname = "linearty";
 		// private $conn;
+
+		private $server = "localhost";
+		private $username = "u134789687_webnever";
+		private $password = "1#Dz=q![?AiJ";
+		private $dbname = "u134789687_webnever";
+		private $conn;
 
 
 		public function __construct() {
@@ -106,14 +106,14 @@
 		// 		$stmt->close();
 		// 	}
 		// }
-		public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $f1, $f2, $f3, $f4, $status) {
+		public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status) {
 			// Get the current date and time
-			$date_sent = date('Y-m-d H:i:s');
+			$created_at = date('Y-m-d H:i:s');
 		
-			$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 			if($stmt = $this->conn->prepare($query)) {
-				$stmt->bind_param('sssssssssss', $house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status);
+				$stmt->bind_param('ssssssssssss', $house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status, $created_at);
 				$stmt->execute();
 				$stmt->close();
 			}

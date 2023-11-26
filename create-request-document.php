@@ -213,7 +213,10 @@ if (isset($_POST["print_certificate"])) {
     $pdf->Output("I", "Certificate.pdf");
 }
 
+
 if (isset($_POST["send_request"])) {
+
+
     $house_no = $_POST["house_no"];
     $pangalan = $_POST["pangalan"];
     $contact_no = $_POST["contact_no"];
@@ -237,7 +240,7 @@ if (isset($_POST["send_request"])) {
     $date_sent = date("Y-m-d H:i:s");
     $status = "Pending";
 
-    $model->addRequest(
+    $addRequest = $model->addRequest(
         $house_no,
         $pangalan,
         $contact_no,
@@ -576,6 +579,7 @@ if (!empty($admin_rows)) {
     
                         <label for="contactnum">Contact No.</label>
                         <input type="tel" id="contactnum" name="contact_no" placeholder="Contact Number" pattern="[0-9]{11}" required>
+                        <input type="text" hidden name="send_request"  value="sendreq" required>
     
     
     
@@ -589,7 +593,7 @@ if (!empty($admin_rows)) {
                         </div>
         
     
-                        <button id="login-btn" name="send_request" type="submit">Submit</button>
+                        <button id="login-btn"type="submit">Submit</button>
                 </div>
                 </form>
                 

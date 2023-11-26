@@ -110,6 +110,26 @@ if (isset($_POST['change_request'])) {
     .modal{
         min-width: 70%;
     }
+
+    body{
+            background-image: url("images/bgwbanoverlay.jpg");
+            background-position: right -80px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        .table{
+            border: 5px solid #FF10F0 ;
+            /* background-color: #00a4ef7d; */
+            background-color: #ffffffd4;
+        }
+        .table_body{
+
+            background-color: #00000000;
+        }
+
+
     </style>
 
 

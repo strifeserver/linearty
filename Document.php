@@ -38,13 +38,14 @@
 			return 'Invalid number';
 		}
 	}
-	
+
 	if (isset($_POST['print_certificate'])) {
 	    require_once('vendor/setasign/fpdf/fpdf.php');
     	require_once('vendor/setasign/fpdi/src/autoload.php');
     	$pdf = new Fpdi();
     	$pdf->AddPage();
-	    
+
+
 	    switch ($_POST['doc_type']) {
 	        case 'Business Closure':
 	            $pdf->setSourceFile('Templates/Business-Issue-Template.pdf');
@@ -70,6 +71,15 @@
 
             	$pdf->SetXY(69, 175);
             	$pdf->Write(0, $_POST['date_approved']);
+
+             
+                $pdf->SetXY(40, 159);
+            	$pdf->Write(0, $_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 210);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
+
+
 	            break;
 	        case 'First Time Job Seeker':
 	            $pdf->setSourceFile('Templates/First-Time-Job-Seeker.pdf');
@@ -87,6 +97,13 @@
             	$pdf->SetXY(94, 150);
             	$pdf->Write(0, $_POST['date_approved']);
             		
+                $pdf->SetXY(150, 240);
+            	$pdf->Write(0, 'CTC No. '.$_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
+
+
             	$pdf->AddPage();
             	$tplIdx = $pdf->importPage(2);
             	$pdf->useTemplate($tplIdx, 0, 0, 200, 290);
@@ -106,6 +123,8 @@
             	
             	$pdf->SetXY(84, 87);
             	$pdf->Write(0, $_POST['full_name']);
+
+
 	            break;
 	        case 'Solo Parent':
 	            $pdf->setSourceFile('Templates/Solo-parent-Certificate.pdf');
@@ -128,6 +147,12 @@
             	
             	$pdf->SetXY(95, 184);
             	$pdf->Write(0, $_POST['date_approved']);
+
+                $pdf->SetXY(120, 160);
+            	$pdf->Write(0, $_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
 	            break;
 	        case 'Senior Citizen':
 	            $pdf->setSourceFile('Templates/Identification-for-Senior-Citizen.pdf');
@@ -147,6 +172,12 @@
             	
             	$pdf->SetXY(78, 149);
             	$pdf->Write(0, $_POST['f1']);
+
+                $pdf->SetXY(150, 240);
+            	$pdf->Write(0, 'CTC No. '.$_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
 	            break;
 	        case 'Residency':
 	            $pdf->setSourceFile('Templates/Residency.pdf');
@@ -169,6 +200,12 @@
             	
             	$pdf->SetXY(75, 154);
             	$pdf->Write(0, $_POST['date_approved']);
+
+                $pdf->SetXY(150, 240);
+            	$pdf->Write(0, 'CTC No. '.$_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
 	            break;
 	        case 'Indigency':
 	            $pdf->setSourceFile('Templates/Certificate-of-Indegency.pdf');
@@ -188,6 +225,12 @@
             	
             	$pdf->SetXY(80, 158);
             	$pdf->Write(0, $_POST['date_approved']);
+
+                $pdf->SetXY(150, 240);
+            	$pdf->Write(0, 'CTC No. '.$_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
 	            break;
 	        case 'Barangay Clearance':
 	            $pdf->setSourceFile('Templates/Barangay-Clearance-Template.pdf');
@@ -210,6 +253,12 @@
             	
             	$pdf->SetXY(72, 138);
             	$pdf->Write(0, $_POST['date_approved']);
+
+                $pdf->SetXY(150, 240);
+            	$pdf->Write(0, 'CTC No. '.$_POST['ctc_no']);
+
+            	$pdf->SetXY(150, 250);
+            	$pdf->Write(0, 'Issued on: '.$_POST['date_issued']);
 	            break;
 	    }
 	    
@@ -311,6 +360,8 @@
     <link rel="stylesheet" href="Css/DocCss.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 <style>
     /* .modal-content{
@@ -325,6 +376,37 @@
             margin-left: 30%;
             margin-top: 10%;
 	}
+
+    body{
+            background-image: url("images/bgwbanoverlay.jpg");
+            background-position: right -80px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        .table{
+            border: 5px solid #FF10F0 ;
+            /* background-color: #00a4ef7d; */
+            background-color: #ffffffd4;
+        }
+        .table_body{
+
+            background-color: #00000000;
+        }
+
+        .select-input{
+		outline: none;
+		font-size: 13px;
+		font-weight: 500;
+		color: #333;
+		border: 1px solid #aaa;
+		border-radius: 5px;
+		padding: 0 15px;
+		height: 42px;
+		margin: 8px 0;
+	}
+
 </style>
 <body>
 
@@ -607,7 +689,7 @@
                                 
                                 ?>
                                 <td>
-                                    <form method="POST" target="_blank">
+                                    <!-- <form method="POST" target="_blank"> -->
                                         <input type="hidden" name="doc_type" value="<?php echo $row['document_type']; ?>">
                                         <input type="hidden" name="full_name" value="<?php echo $row['pangalan']; ?>">
                                         <input type="hidden" name="f1" value="<?php echo $row['f1']; ?>">
@@ -615,8 +697,26 @@
                                         <input type="hidden" name="f3" value="<?php echo $row['f3']; ?>">
                                         <input type="hidden" name="f4" value="<?php echo $row['f4']; ?>">
                                         <input type="hidden" name="date_approved" value="<?php echo $row['date_approved']; ?>">
-                                        <button type="submit" name="print_certificate" <?php if ($row['status'] != "Delivered" || $row['document_type'] == "Bonafide Residence") { echo 'style="opacity: 0.6;" disabled'; } ?>>Print <span class="bx bx-printer"></span></button>
-                                    </form>
+                                  
+
+                                        <?php
+                                            $printDoc = [
+                                                $row['document_type'],
+                                                $row['pangalan'],
+                                                $row['f1'],
+                                                $row['f2'],
+                                                $row['f3'],
+                                                $row['f4'],
+                                                $row['date_approved'],
+                                            ];
+                                            $printDoc = htmlspecialchars(json_encode($printDoc), ENT_QUOTES, 'UTF-8');
+                                            ?>
+                                            <button onclick="printDocument('<?php echo $printDoc; ?>')" type="submit" name="print_certificate" <?php if ($row['status'] != "Delivered" || $row['document_type'] == "Bonafide Residence") { echo 'style="opacity: 0.6;" disabled'; } ?>>
+                                                Print <span class="bx bx-printer"></span>
+                                            </button>
+
+
+                                    <!-- </form> -->
                                 </td>
                                 <?php
                                 
@@ -775,3 +875,87 @@
     </script>
 </body>
 </html>
+<script>
+
+
+
+function printDocument(data1) {
+    var printDocObj = JSON.parse(data1);
+
+    var doc_type = printDocObj[0];
+    var full_name = printDocObj[1];
+    var f1 = printDocObj[2];
+    var f2 = printDocObj[3];
+    var f3 = printDocObj[4];
+    var f4 = printDocObj[5];
+    var date_approved = printDocObj[6];
+
+
+
+
+
+
+
+
+
+    Swal.fire({
+        title: "<strong><u>Print Document</u></strong>",
+        icon: "info",
+        html: `
+
+        <form method="POST" target="_blank">
+            <input type="hidden" name="doc_type" value="`+doc_type+`">
+            <input type="hidden" name="full_name" value="`+full_name+`">
+            <input type="hidden" name="f1" value="`+f1+`">
+            <input type="hidden" name="f2" value="`+f2+`">
+            <input type="hidden" name="f3" value="`+f3+`">
+            <input type="hidden" name="f4" value="`+f4+`">
+            <input type="hidden" name="print_certificate" value="`+true+`">
+            <input type="hidden" name="date_approved" value="`+date_approved+`">
+            <input type="text" name="ctc_no" value="">
+            <input type="date" name="date_issued" value="">
+            <button>Submit</button>
+        </form>
+
+
+
+
+        `,
+        showCloseButton: true,
+        showCancelButton: false,
+        focusConfirm: false,
+        confirmButtonText: "Close",
+        // cancelButtonText: "Cancel"
+    }).then((result) => {
+        // if (result.isConfirmed) {
+        //     var ctcNoValue = document.getElementById('ctc_no').value;
+        //     var dateIssuedValue = document.getElementById('date_issued').value;
+
+        //     $.ajax({
+        //         url: 'document.php',
+        //         type: 'POST',
+        //         data: {
+        //             doc_type: doc_type,
+        //             full_name: full_name,
+        //             f1: f1,
+        //             f2: f2,
+        //             f3: f3,
+        //             f4: f4,
+        //             date_approved: date_approved,
+        //             ctc_no: ctcNoValue,
+        //             date_issued: dateIssuedValue,
+        //         },
+        //         success: function(response) {
+        //             // Open a new tab with the response URL
+        //             window.open(response, '_blank');
+        //         },
+        //         error: function(error) {
+        //             console.error(error);
+        //             // Handle error
+        //         }
+        //     });
+        // }
+    });
+}
+
+</script>

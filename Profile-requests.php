@@ -94,7 +94,31 @@
     margin-left: 40%;
     margin-top: 12%;
         }
+        label{
+    color: black;
+    font-size: 18px;
+}
+body{
+    background-image: url("images/bgwbanoverlay.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+select{
+    height: 50px !important;
+}
+input{
+    height: 50px !important;
+}
+.table, .table2, .checker, main, .fam-footer{
+    border: 5px solid #FF10F0 ;
+    /* background-color: #00a4ef7d; */
+    background-color: #ffffffd4;
+}
+.table_body{
 
+    background-color: #00000000;
+}
 </style>
 <body>
 

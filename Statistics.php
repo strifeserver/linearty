@@ -37,8 +37,42 @@
     <!--eto yung naman yung link nung assets natin logo, icons etc..upload sya lahat online so need mo ng net-->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
 </head>
+
+<style>
+
+main{
+            background-image: url("images/bgwbanoverlay.jpg");
+            /* background-position: right -80px; */
+            /* background-repeat: no-repeat; */
+            /* background-size: cover; */
+        }
+        .card-single{
+            border: 5px solid #FF10F0 ;
+            /* background-color: #00a4ef7d; */
+            background-color: #ffffffd4;
+        }
+        .table_body{
+
+            background-color: #00000000;
+        }
+        
+        .text-color{
+            color:#aa10ff !important;
+        }
+
+        .stats-header button{
+            background-color: white;
+            color: black;
+        }
+
+</style>
 <body>
 
     <!--side nav bar dito-->
@@ -217,7 +251,7 @@
             ?>
             <form method="POST">
                 <div class="stats-header">
-                   <h3>Current Statistics</h3>
+                   <h3 style="color: white;">Current Statistics</h3>
                    <button type="submit" name="generate_statistics">Generate Statistics..<span class="bx bxs-pencil"></span></button>
                    <select name="year" required>
                        <option value="" disabled selected>Select Year</option>
@@ -415,7 +449,7 @@
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=1&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                             
                             if(is_array($model->totalPopQry())){
@@ -426,13 +460,13 @@
                             
                             
                             ?></h1>
-                            <span>Total Population</span>
+                            <span class="text-color">Total Population</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-sr-users-alt text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
@@ -440,21 +474,21 @@
                     <div>
                         <a href="Statistics-profile.php?type=2&year=<?php echo $year; ?>">
                
-                            <h1><?php echo @count($model->fetchProfiles2()) ?? 0; ?></h1>
-                            <span>Active Residents</span>
+                            <h1 class="text-color"><?php echo @count($model->fetchProfiles2()) ?? 0; ?></h1>
+                            <span class="text-color">Active Residents</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                    <i class="fi fi-ss-user-add text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=3&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                             
                             $householdss = $model->fetchProfiles2();
@@ -468,20 +502,20 @@
                             
                             
                             ?></h1>
-                            <span>Households</span>
+                            <span class="text-color">Households</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                    <i class="fi fi-rs-house-chimney text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=4&year=<?php echo $year; ?>">
-                            <h1><?php
+                            <h1 class="text-color"><?php
                             
                             
                             $gender = "M";
@@ -499,20 +533,20 @@
                             
                             
                             ?></h1>
-                            <span>Men</span>
+                            <span class="text-color">Men</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-rr-mars text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=5&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                 
                             
@@ -531,48 +565,48 @@
                             
                             
                             ?></h1>
-                            <span>Women</span>
+                            <span class="text-color">Women</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-rr-venus text-color" style="font-size:30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=6&year=<?php echo $year; ?>">
-                            <h1><?php echo $senior; ?></h1>
-                            <span>Seniors</span>
+                            <h1 class="text-color"><?php echo $senior; ?></h1>
+                            <span class="text-color">Seniors</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-sr-people text-color" style="font-size:30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=7&year=<?php echo $year; ?>">
-                            <h1><?php echo $pwd; ?></h1>
-                            <span>PWD</span>
+                            <h1 class="text-color"><?php echo $pwd; ?></h1>
+                            <span class="text-color">PWD</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                    <i class="fi fi-br-wheelchair text-color" style="font-size:30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=8&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                             
                             $soloparent = "Solo-Parent";
@@ -585,34 +619,34 @@
                                 echo 0;
                             }
                              ?></h1>
-                            <span>Solo parents</span>
+                            <span class="text-color">Solo parents</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-rr-user text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=9&year=<?php echo $year; ?>">
-                            <h1><?php echo $out_of_school; ?></h1>
-                            <span>Out of school</span>
+                            <h1 class="text-color"><?php echo $out_of_school; ?></h1>
+                            <span class="text-color">Out of school</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-rr-backpack" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=10&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                             $unemployed = "Unemployed";
                             $unemployedrows = $model->fetchProfiles6_7_8_9_10($unemployed);
@@ -629,20 +663,20 @@
                             
                             
                             ?></h1>
-                            <span>Unemployed</span>
+                            <span class="text-color">Unemployed</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-bs-chalkboard-user text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=11&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                             
                             if(is_array($model->fetchProfiles11())){
                                 echo count($model->fetchProfiles11());
@@ -652,27 +686,27 @@
                             
                             
                             ?></h1>
-                            <span>Infants</span>
-                            <span>(0-9 months)</span>
+                            <span class="text-color">Infants</span>
+                            <span class="text-color">(0-9 months)</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                    <i class="fi fi-br-child-head" style="font-size: 25px;"></i>
                     </div>
                 </div>
 
                 <div class="card-single">
                     <div>
                         <a href="Statistics-profile.php?type=12&year=<?php echo $year; ?>">
-                            <h1><?php 
+                            <h1 class="text-color"><?php 
                       
                             $inactive_residents = $stat_row['inactive_residents'];
                             echo $inactive_residents;
                             
                             ?></h1>
-                            <span>Inactive Residents</span>
+                            <span class="text-color">Inactive Residents</span>
                             <small>Year: <?php 
                             
                             if(!empty($year) && $year != 'All'){
@@ -687,21 +721,51 @@
                     </div>
 
                     <div>
-                        <span class="las la-users"></span>
+                        <i class="fi fi-bs-street-view text-color" style="font-size: 30px;"></i>
                     </div>
                 </div>
                 
                 <div class="card-single">
                     <div>
-                        <h1 class="last-stats">...</h1>
+                        <h1 class="">...</h1>
                         <span>....</span>
-                        <small class="last-card">Year: <?php echo $year; ?></small>
+                        <small class="">Year: <?php echo $year; ?></small>
                     </div>
 
                     <div>
                         <span class="las la-users"></span>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="card-single" style="opacity: 0;">
+                    <div>
+                        <a href="#>">
+                        <h1 class="last-stats">...</h1>
+                        <span>....</span>
+                        <small class="last-card">Year: <?php echo $year; ?></small>
+                        </a>
+                    </div>
+
+                    <div>
+                        <span class="las la-users"></span>
+                    </div>
+                </div>
+
+
+
+
+
+
+                
                 
             </div>
             <!--end nung container nung statistics cards-->

@@ -141,7 +141,28 @@
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
+<style>
 
+	.form-field{
+		height: 80px;
+	}
+	.select-input{
+		outline: none;
+		font-size: 13px;
+		font-weight: 500;
+		color: #333;
+		border: 1px solid #aaa;
+		border-radius: 5px;
+		padding: 0 15px;
+		height: 42px;
+		margin: 8px 0;
+	}
+
+
+	input[type="checkbox"] {
+		width: 25px;
+	}
+</style>
 <?php try { ?>
 <body>
 	<form method="POST" enctype="multipart/form-data">
@@ -360,7 +381,7 @@
 			<table>
 				<thead>
 					<tr>
-							<th>ID</th>
+							<!-- <th>ID</th>
 							<th>Pangalan</th>
 							<th>Kapanganakan</th>
 							<th>Edad</th>
@@ -370,32 +391,81 @@
 							<th>Hanapbuhay</th>
 							<th>Taon ng paninirahan</th>
 							<th>PWD/Senior/Solo-Parent/School Dropout/Unemployed</th>
-							<th>Action</th>
+							<th>Action</th> -->
 					</tr>
 				</thead>
 
 				<!--eto naman yung mga input fields table yung "inpu type"-->
 				<tbody id="talaan-kabahayan">
 					<tr>
-						<td>1</td>
-						<td> <div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname"  required> </div> </td>
-						<td> <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required> </div> </td>
-						<td> <div class="input"> <input type="number" name="kabahayan_age[]" placeholder="Age" required> </div> </td>
-						<td> <div class="input"> <select name="kabahayan_gender[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select></div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_relationship[]" placeholder="Relationship" required> </div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div> </td>
-						<td> <div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" required> </div> </td>
-						<td> <div class="input"> 
-						    <select name="kabahayan_status[]">
-				                <option value="" disabled="" selected="">Select option</option>
-								<option value="">NONE</option>
-				                <option value="PWD">PWD</option>
-				                <option value="Senior">Senior</option>
-				                <option value="Solo-Parent">Solo-Parent</option>
-				                <option value="School Dropout">School Dropout</option>
-				                <option value="Unemployed">Unemployed</option>
-				            </select> </div> </td>
+						<!-- <td>1</td> -->
+						<td> 
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Pangalan</h3>
+								<div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname"  required> </div> 
+							</div>
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Kapanganakan</h3>
+								<div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required> </div> 
+							</div>
+
+						</td>
+						<td> 
+
+							<div class="form-field">
+							<h3 style="font-weight: bold;">Edad</h3>
+							<div class="input"> <input type="number" name="kabahayan_age[]" placeholder="Age" required> </div>
+							</div>
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Kasarian</h3>
+								<div class="input"> <select class="select-input" name="kabahayan_gender[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select></div> 
+							</div>
+						</td>
+						<td> 
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Katayuan</h3>
+								<div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> 
+							</div>
+
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Katayuan Sibil</h3>
+								<div class="input"> <input type="text" name="kabahayan_relationship[]" placeholder="Relationship" required> </div>
+							</div>
+
+
+						</td>
+						<td>
+
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div>
+						</div>
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" required> </div>
+						</div>
+
+						</td>
+						<td> 
+						<div class="form-field">
+							<h3 style="font-weight: bold;">Hanapbuhay</h3>
+							<div class="input"> 
+								<select class="select-input" name="kabahayan_status[]">
+									<option value="" disabled="" selected="">Select option</option>
+									<option value="">NONE</option>
+									<option value="PWD">PWD</option>
+									<option value="Senior">Senior</option>
+									<option value="Solo-Parent">Solo-Parent</option>
+									<option value="School Dropout">School Dropout</option>
+									<option value="Unemployed">Unemployed</option>
+								</select>
+						 	</div>
+						</div>
+
+						</td>
+	
 						<td><button type="button" id="talaan-kabahayan-add">+</button></td>
 					</tr>
 				</tbody>

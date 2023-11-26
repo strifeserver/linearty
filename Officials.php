@@ -13,7 +13,7 @@
 	include('Global/Model.php');
 	$model = new Model();
 	
-	$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+	$admin_rows = $model->fetchAdminDetails(@$_SESSION['admin_sess']);
 	
 	if (!empty($admin_rows)) {
 	    foreach ($admin_rows as $admin_row) {
@@ -46,6 +46,25 @@
             background-color: #d893a3;
             color: #b30021;
         }
+
+        body{
+            background-image: url("images/bgwbanoverlay.jpg");
+            background-position: right -80px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        .table{
+            border: 5px solid #FF10F0 ;
+            /* background-color: #00a4ef7d; */
+            background-color: #ffffffd4;
+        }
+        .table_body{
+
+            background-color: #00000000;
+        }
+
     </style>
     <style>
 .custom-button {
@@ -82,7 +101,7 @@
                     <!--A yung buttons mga naka hyper links links-->
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
                     <li>
@@ -122,7 +141,7 @@
                     
                     <?php
                     
-                        if ($admin_type == 'super') {
+                        if (@$admin_type == 'super') {
                             
                     ?>
 					<!--<li>-->

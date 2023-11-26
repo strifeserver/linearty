@@ -335,7 +335,13 @@
                             ?>
                             <tr>
                                 <td> <?php echo $i; ?> </td>
-                                <td> <?php echo (empty($row['event_image'])) ? 'NO ATTACHMENT' : '<a href="" id="gov_id-'.$row['log_id'].'">Click to see attachment</a>'; ?> </td>
+                                <td> 
+                             
+                                
+                                    <img id="gov_id-<?php echo $row['log_id'] ?>"src="Events/<?php echo $row['event_image']; ?>.jpg" style="width: 100px; height: auto;">
+
+
+                                </td>
                                 <td> <?php echo $row['event']; ?> </td>
                                 <td> <?php echo $row['event_place']; ?> </td>
                                 <td> <?php echo date('F j, g:i A', strtotime($row['datetime'])); ?> </td>

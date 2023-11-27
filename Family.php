@@ -541,7 +541,7 @@
 						<td><div class="input"> <input type="number" placeholder="Edad" name="bata_edad[]"> </div></td>
 						<td><div class="input"> <select name="bata_kasarian[]"><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select> </div></td>
 						<td><div class="input"> <input type="text" placeholder="Bakuna" name="bata_bakuna[]"> </div></td>
-						<td><button type="button" id="talaan-bata-add">+</button></td>
+						<td><button type="button" id="talaan-bata-add" class="btn">+</button></td>
 					</tr>
 				</tbody>
 			</table>

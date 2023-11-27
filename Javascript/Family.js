@@ -11,7 +11,7 @@ let i = 1;
       <td><div class="input"> <input type="number" placeholder="Edad" name="bata_edad[]" required> </div></td>
       <td><div class="input"> <select name="bata_kasarian[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select> </div></td>
       <td><div class="input"> <input type="text" placeholder="Bakuna" name="bata_bakuna[]" required> </div></td>
-      <td><button type="button" data-id="${i}" class="bata_remove">-</button></td>
+      <td><button type="button" data-id="${i}" class="bata_remove btn">-</button></td>
     `;
     document.getElementById('talaan-bata').appendChild(newRow);
   });
@@ -101,7 +101,7 @@ let i = 1;
 
       </td>
 
-      <td><button type="button" data-id="${kabahayan_i}" class="kabahayan_remove">-</button></td>
+      <td><button type="button" data-id="${kabahayan_i}" class="kabahayan_remove btn">-</button></td>
 
 
 

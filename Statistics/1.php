@@ -60,15 +60,15 @@
                                 }
                                 
                             ?>
-                            <div id="changeStatus<?php echo $row['id']; ?>" class="modal">
+                            <div id="changeStatus<?php echo @$row['id']; ?>" class="modal">
                                 <div class="modal-content">
                                   <span class="close">&times;</span>
                                   <h2>Change Status</h2>
                                   <form method="POST">
-                                      <input type="hidden" name="status_id" value="<?php echo $row['id']; ?>">
-                                      <input type="hidden" name="status_contact" value="<?php echo $row['contact_no']; ?>">
-                                    <label for="status-<?php echo $row['id']; ?>">Status</label>
-                                    <select id="status-<?php echo $row['id']; ?>" name="status" required>
+                                      <input type="text" name="status_id" value="<?php echo @$row['id']; ?>">
+                                      <input type="text" name="status_contact" value="<?php echo @$row['contact_no']; ?>">
+                                    <label for="status-<?php echo @$row['id']; ?>">Status</label>
+                                    <select id="status-<?php echo @$row['id']; ?>" name="status" required>
                                         <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
                                         <option value="Declined" <?php echo ($row['status'] == 'Declined') ? 'selected' : ''; ?>>Declined</option>
                                         <option value="Approved" <?php echo ($row['status'] == 'Approved') ? 'selected' : ''; ?>>Approved</option>

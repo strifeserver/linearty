@@ -9,7 +9,7 @@
     use Twilio\Rest\Client;
     
     $accountSid = 'AC7e2863931cfad9261ddbfdee59a66f13';
-    $authToken = 'd46d3f0010bbc139492d1f2bd2865ebc';
+    $authToken = 'fda229c6636feb539074f771eb3978ad';
         
     $client = new Client($accountSid, $authToken);
 	
@@ -781,7 +781,7 @@
                                 <div class="modal-content">
                                   <span class="close" onclick="closeChangeModal()">&times;</span>
                                   <h2>Change Status</h2>
-                                  <form method="POST" target="_blank">
+                                  <form method="POST" >
                                       <input type="hidden" name="status_id" value="<?php echo $row['id']; ?>">
                                     <label for="status-<?php echo $row['id']; ?>">Status</label>
                                     <select id="status-<?php echo $row['id']; ?>" name="status" required>

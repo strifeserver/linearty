@@ -5,7 +5,7 @@
     use Twilio\Rest\Client;
     
     $accountSid = 'AC7e2863931cfad9261ddbfdee59a66f13';
-    $authToken = 'd46d3f0010bbc139492d1f2bd2865ebc';
+    $authToken = 'fda229c6636feb539074f771eb3978ad';
         
     $client = new Client($accountSid, $authToken);
 	
@@ -222,10 +222,10 @@
                         if (@$admin_type == 'super') {
                             
                     ?>
-                    <li>
+                    <!-- <li>
                         <a href=""><span class="bx bxs-business"></span>
                         <span>Community</span></a>
-                    </li>
+                    </li> -->
                     <?php
                     
                         }

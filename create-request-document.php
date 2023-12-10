@@ -603,7 +603,7 @@ if (!empty($admin_rows)) {
                         <label for="last_name">Last Name</label>
                         <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
                         <label for="suffix">Suffix</label>
-                        <input type="text" id="suffix" name="suffix" placeholder="Suffix" required>
+                        <input type="text" id="suffix" name="suffix" placeholder="Suffix" >
     
                         <label for="contactnum">Contact No.</label>
                         <input type="tel" id="contactnum" name="contact_no" placeholder="Contact Number" pattern="[0-9]{11}" required>
@@ -619,11 +619,11 @@ if (!empty($admin_rows)) {
                         <div id="file-upload">
                             
                         </div>
-        
+                        
     
                         <div class="login-container">
                             <input type="checkbox" id="agreeCheckbox">
-                            <label for="agreeCheckbox"> I agree to the <a href="terms_and_agreement.html">Terms and Agreement</a></label>
+                            <label for="agreeCheckbox"  style="top: -20px;  position: relative;"> I agree to the <a href="tandc.php" target="_blank">Terms and Agreement</a></label>
 
                             <button id="login-btn" type="submit" disabled>Submit</button>
                         </div>

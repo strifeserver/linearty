@@ -115,6 +115,7 @@
 		$code = $_POST['code'];
 
 		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, @$unique, $status, $code);
+
 		if(isset($_POST['first_name'])){
 
 			foreach ($_POST['first_name'] as $key => $kbhyn) {
@@ -879,23 +880,15 @@
 					<div class="fam-txt"> <input type="text" name="pangalan" placeholder="Pangalan ng nagsagot" required> </div>
 				</div>
 
-				<?php 
-					if(@$_SESSION['admin_sess']){ ?>
+				
 
-<div class="fam-fields">
-					<label for="">Code:</label>
-					<div class="fam-txt"> <input type="text" name="code" value="" id="code"> </div>
+				<div class="fam-fields">
+					<label for="" <?php if(!@$_SESSION['admin_sess']){ ?> hidden <?php } ?>>Code:</label>
+					<div class="fam-txt"> <input type="text" name="code" value="" id="code" <?php if(!@$_SESSION['admin_sess']){ ?> hidden <?php } ?>> </div>
 				</div>
 
 
-<?php 
 
-
-
-					}
-
-
-					?>
 
 
 
@@ -939,7 +932,7 @@
 			<div class="fam-input">
 				<div class="fam-fields">
 					<input type="checkbox" id="termsCheckbox">
-					<label for="termsCheckbox"> I agree to the <a href="tandc.php" target="_blank">Terms and Agreement</a></label>
+					<label for="termsCheckbox"style="top: -20px;  position: relative;"> I agree to the <a href="tandc.php" target="_blank">Terms and Agreement</a></label>
 					<div class="fam-btn">
 						<input type="submit" name="submit_profile" value="IPASA ANG PROFILE" id="submitProfileBtn" disabled>
 					</div>

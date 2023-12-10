@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		private $server = "localhost";
-		private $username = "root";
-		private $password = "";
-		private $dbname = "linearty";
-		private $conn;
-
 		// private $server = "localhost";
-		// private $username = "u134789687_webnever";
-		// private $password = "1#Dz=q![?AiJ";
-		// private $dbname = "u134789687_webnever";
+		// private $username = "root";
+		// private $password = "";
+		// private $dbname = "linearty";
 		// private $conn;
+
+		private $server = "localhost";
+		private $username = "u134789687_webnever";
+		private $password = "1#Dz=q![?AiJ";
+		private $dbname = "u134789687_webnever";
+		private $conn;
 
 
 		public function __construct() {
@@ -62,11 +62,11 @@
 			}
 		}
 
-		public function insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status) {
-			$query = "INSERT INTO family_profile (house_no, street, apartment_owner, sitio, relihiyon, contact_no, tubig, palikuran, tanim, hardin, manok, baboy, gumagamit_ng, buntis, pamilya, family_planning, pangalan, petsa, requirement, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		public function insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status, $code) {
+			$query = "INSERT INTO family_profile (house_no, street, apartment_owner, sitio, relihiyon, contact_no, tubig, palikuran, tanim, hardin, manok, baboy, gumagamit_ng, buntis, pamilya, family_planning, pangalan, petsa, requirement, status, code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 			if ($stmt = $this->conn->prepare($query)) {
-				$stmt->bind_param('ssssssssssssssssssss', $house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status);
+				$stmt->bind_param('sssssssssssssssssssss', $house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, $requirement, $status, $code);
 				$stmt->execute();
 				$last_id = $stmt->insert_id;
 				$stmt->close(); // Move this line here

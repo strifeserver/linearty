@@ -90,7 +90,7 @@ if (isset($_POST['submit_profile'])) {
 				'suffix' => @$_POST['bata_suffix_name'][$key],
 			];
 		
-			@$model->insertKabataanRow($last_id, $kabataan_name, $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
+			@$model->insertKabataanRow($_GET['id'], $kabataan_name, $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
 		}
 	}
 }
@@ -925,9 +925,16 @@ $i++;
 				<div class="fam-fields">
 					<label for="">PANGALAN NG NAGSAGOT NG PROFILE:</label>
 					<div class="fam-txt"> <input type="text" name="pangalan" placeholder="Pangalan ng nagsagot" value="<?php echo $profile_row['pangalan']; ?>" required> </div>
+					<label for="">Code</label>
+					<div class="fam-txt"> <input type="text" name="code" placeholder="code" value="<?php echo $profile_row['code']; ?>" required > </div>
 				</div>
 			</div>
-
+			<div class="fam-input">
+				<div class="fam-fields">
+					<label for="">PETSA:</label>
+					<div class="fam-txt"> <input type="date" name="petsa" value="<?php echo $profile_row['petsa']; ?>"> </div>
+				</div>
+			</div>
 			<!--eto yung submit button-->
 			<div class="fam-input">
 				<div class="fam-fields">
@@ -953,12 +960,51 @@ $i++;
     newRow.id = 'row' + i;
     newRow.innerHTML = `
       <td>${i}</td>
-      <td><div class="input"> <input type="text" placeholder="Pangalan" name="bata_pangalan[]" required> </div></td>
-      <td><div class="input"> <input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" required> </div></td>
-      <td><div class="input"> <input type="number" placeholder="Edad" name="bata_edad[]" required> </div></td>
-      <td><div class="input"> <select name="bata_kasarian[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select> </div></td>
+	  <td>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">First Name</h3>
+          <input type="text" placeholder="First Name" name="bata_first_name[]"> 
+        </div>
+        <div class="input"> 
+          <input type="text" placeholder="Pangalan"style="opacity:0"> 
+        </div>
+      </td>
+      <td>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Middle Name</h3>	
+          <input type="text" placeholder="Middle Name" name="bata_middle_name[]"> 
+        </div>
+
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Kapanganakan</h3>	
+          <input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" onchange="calculateAgeBata(this)"> 
+        </div>
+      </td>
+      <td>
+      <div class="input"> 
+      <h3 style="font-weight: bold;">Last Name</h3>	
+        <input type="text" placeholder="Last Name" name="bata_last_name[]"> </div>
+      </div>
+      <div class="input"> 
+        <h3 style="font-weight: bold;">Edad</h3>	
+
+        <input type="number" placeholder="Edad" name="bata_edad[]"> 
+      </td>
+      <td>
+      <div class="input"> 
+        <h3 style="font-weight: bold;">Suffix</h3>	
+        <input type="text" placeholder="Suffix" name="bata_suffix_name[]"> 
+      </div>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Kasarian</h3>	
+          <select class="select-input" name="bata_kasarian[]">
+            <option value="" disabled="" selected="">Select gender</option>
+            <option value="M">Male</option><option value="F">Female</option>
+          </select> 
+        </div>
+      </td>
       <td><div class="input"> <input type="text" placeholder="Bakuna" name="bata_bakuna[]" required> </div></td>
-      <td><button type="button" data-id="${i}" class="bata_remove">-</button></td>
+      <td><button type="button" data-id="${i}" class="bata_remove btn">-</button></td>
     `;
     document.getElementById('talaan-bata').appendChild(newRow);
   });
@@ -981,25 +1027,87 @@ $i++;
     const newRow = document.createElement('tr');
     newRow.id = 'krow' + kabahayan_i;
     newRow.innerHTML = `
-      <td>${kabahayan_i}</td>
-      <td> <div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname" required> </div> </td>
-						<td> <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required> </div> </td>
-						<td> <div class="input"> <input type="number" name="kabahayan_age[]" placeholder="Age" required> </div> </td>
-						<td> <div class="input"> <select name="kabahayan_gender[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select></div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_relationship[]" placeholder="Relationship" required> </div> </td>
-						<td> <div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div> </td>
-						<td> <div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" required> </div> </td>
-						<td> <div class="input">
-						    <select name="kabahayan_status[]" required>
-				                <option value="" disabled="" selected="">Select option</option>
-				                <option value="PWD">PWD</option>
-				                <option value="Senior">Senior</option>
-				                <option value="Solo-Parent">Solo-Parent</option>
-				                <option value="School Dropout">School Dropout</option>
-				                <option value="Unemployed">Unemployed</option>
-				            </select> </div> </td>
-      <td><button type="button" data-id="${kabahayan_i}" class="kabahayan_remove">-</button></td>
+	<td> 
+        <div class="form-field">
+          <h3 style="font-weight: bold;">First Name</h3>
+          <div class="input"> <input type="text" name="first_name[]" placeholder="First Name"  required> </div> 
+        </div>
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Kapanganakan</h3>
+          <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required onchange="calculateAge(this)"> </div> 
+        </div>
+        <div class="form-field">
+							
+        </div>
+      </td>
+      <td> 
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Middle Name</h3>
+          <div class="input"> <input type="text" name="middle_name[]" placeholder="Middle Name"  required> </div> 
+        </div>
+        <div class="form-field">
+        <h3 style="font-weight: bold;">Edad</h3>
+        <div class="input"> <input type="number" name="kabahayan_age[]" placeholder="Age" required> </div>
+        </div>
+
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Kasarian</h3>
+          <div class="input"> <select class="select-input" name="kabahayan_gender[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select></div> 
+        </div>
+      </td>
+      <td> 
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Last Name</h3>
+          <div class="input"> <input type="text" name="last_name[]" placeholder="Last Name"  required> </div> 
+        </div>
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Katayuan Sibil</h3>
+          <div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> 
+        </div>
+
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Relasyon</h3>
+          <div class="input"> <input type="text" name="kabahayan_relationship[]" placeholder="Relationship" required> </div>
+        </div>
+
+
+      </td>
+      <td>
+      <div class="form-field">
+        <h3 style="font-weight: bold;">Suffix</h3>
+        <div class="input"> <input type="text" name="suffix[]" placeholder="suffix"  required> </div> 
+      </div>
+      <div class="form-field">
+        <h3 style="font-weight: bold;">Hanapbuhay</h3>
+        <div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div>
+      </div>
+      <div class="form-field">
+        <h3 style="font-weight: bold;">Taon ng Paninirahan sa Brgy</h3>
+        <div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" required> </div>
+      </div>
+
+      </td>
+      <td> 
+      <div class="form-field">
+        <h3 style="font-weight: bold;">Senior/Pwd/Solo/Parent/Out of/School/Unemployed</h3>
+        <div class="input"> 
+          <select class="select-input" name="kabahayan_status[]">
+            <option value="" disabled="" selected="">Select option</option>
+            <option value="">NONE</option>
+            <option value="PWD">PWD</option>
+            <option value="Senior">Senior</option>
+            <option value="Solo-Parent">Solo-Parent</option>
+            <option value="School Dropout">School Dropout</option>
+            <option value="Unemployed">Unemployed</option>
+          </select>
+         </div>
+      </div>
+
+      </td>
+
+      <td><button type="button" data-id="${kabahayan_i}" class="kabahayan_remove btn">-</button></td>
+
+
     `;
     document.getElementById('talaan-kabahayan').appendChild(newRow);
   });

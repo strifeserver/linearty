@@ -665,27 +665,27 @@ if (!empty($admin_rows)) {
                 switch ($(this).val()) {
                     case 'Business Closure':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="businessname">Business Name</label><input type="text" id="businessname" name="f1" placeholder="Business name" required><label for="fulladdress">Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" required>');
+                        $('#additional-info').html('<label for="businessname">Business Name</label><input type="text" id="businessname" name="f1" placeholder="Business name" required><label for="fulladdress" hidden>Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" hidden>');
                         break;
                     case 'First Time Job Seeker':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress">Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" required>');
+                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress" hidden>Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" hidden>');
                         break;
                     case 'Solo Parent':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress">Full name of child</label><input type="text" id="fulladdress" name="f2" placeholder="Full name of child" required>');
+                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress" hidden>Full name of child</label><input type="text" id="fulladdress" name="f2" placeholder="Full name of child" hidden>');
                         break;
                     case 'Senior Citizen':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="fulladdress">Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" required><label for="dob">Date of Birth</label><input type="date" id="dob" name="f4" placeholder="Date of birth" required><label for="pob">Place of Birth</label><input type="text" id="pob" name="f1" placeholder="Place of birth" required>');
+                        $('#additional-info').html('<label for="fulladdress" hidden>Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" hidden><label for="dob">Date of Birth</label><input type="date" id="dob" name="f4" placeholder="Date of birth" required><label for="pob">Place of Birth</label><input type="text" id="pob" name="f1" placeholder="Place of birth" required>');
                         break;
                     case 'Residency':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress">Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" required>');
+                        $('#additional-info').html('<label for="age">Age</label><input type="text" id="age" name="f1" placeholder="Age" required><label for="fulladdress" hidden>Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" hidden>');
                         break;
                     case 'Indigency':
                         $('#loginForm').css({'max-height': '', 'overflow': '', 'margin-top': ''});
-                        $('#additional-info').html('<label for="fulladdress">Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" required><label for="purpose">Purpose</label><input type="text" id="purpose" name="f1" placeholder="Purpose" required>');
+                        $('#additional-info').html('<label for="fulladdress" hidden hidden>Full Address</label><input type="text" id="fulladdress" name="f2" placeholder="Full address" hidden><label for="purpose">Purpose</label><input type="text" id="purpose" name="f1" placeholder="Purpose" required>');
                         break;
                     case 'Barangay Clearance':
                         $('#loginForm').css({'max-height': '100%', 'overflow': 'auto', 'margin-top': '-130px'});

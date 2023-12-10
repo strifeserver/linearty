@@ -63,7 +63,11 @@ if (isset($_POST['change_request'])) {
             }
         }
     } elseif ($status == 'Approved') {
-        $messageContent = "Your application for family profile has been approved.";
+
+        $code = $_POST['code'];
+
+        $messageContent = "Code is: ".$code." Your application for family profile has been approved. Save this code for the update of the family profile form.(DON'T SHARE THIS CODE";
+ 
 
         if (normalizeContactNumber($contact_no) != 'Invalid number') {
             try {
@@ -362,6 +366,7 @@ if (!empty($rows)) {
                                   <h2>Change Status</h2>
                                   <form method="POST">
                                       <input type="hidden" name="status_id" value="<?php echo $row['id']; ?>">
+                                      <input type="hidden" name="code" value="<?php echo $row['code']; ?>">
                                       <input type="hidden" name="status_contact" value="<?php echo $row['contact_no']; ?>">
                                     <label for="status-<?php echo $row['id']; ?>">Status</label>
                                     <select id="status-<?php echo $row['id']; ?>" name="status" required>

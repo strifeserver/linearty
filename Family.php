@@ -112,8 +112,9 @@
 		if(empty($baboy)){
 			$baboy = '';
 		}
+		$code = $_POST['code'];
 
-		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, @$unique, $status);
+		$last_id = $model->insertFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $petsa, @$unique, $status, $code);
 		if(isset($_POST['first_name'])){
 
 			foreach ($_POST['first_name'] as $key => $kbhyn) {
@@ -523,7 +524,7 @@
 						<td>
 							<div class="form-field">
 								<h3 style="font-weight: bold;">Suffix</h3>
-								<div class="input"> <input type="text" name="suffix[]" placeholder="Suffix"  required> </div> 
+								<div class="input"> <input type="text" name="suffix[]" placeholder="Suffix"  > </div> 
 							</div>
 						<div class="form-field">
 							<h3 style="font-weight: bold;">Hanapbuhay</h3>
@@ -879,7 +880,7 @@
 				</div>
 				<div class="fam-fields">
 					<label for="">Code:</label>
-					<div class="fam-txt"> <input type="text" name="code" value="SDHFD34" > </div>
+					<div class="fam-txt"> <input type="text" name="code" value="" id="code"> </div>
 				</div>
 			</div>
 
@@ -1039,6 +1040,27 @@
 			// Send the request
 			xhr.send();
 		}
+
+
+
+		function generateAlphanumericId(length) {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		let result = '';
+		for (let i = 0; i < length; i++) {
+			const randomIndex = Math.floor(Math.random() * characters.length);
+			result += characters.charAt(randomIndex);
+		}
+		return result;
+		}
+
+		function generateAndSetUniqueId() {
+		// Generate a unique alphanumeric ID with a length of 6
+		const newId = generateAlphanumericId(6);
+
+		// Set the value of the input field with the id "code"
+		document.getElementById('code').value = newId;
+		}
+		generateAndSetUniqueId();
 	</script>
 <!------ FAMILY PAPER ENDS ---------------------------------------------------------------------------------------->  
 </body>

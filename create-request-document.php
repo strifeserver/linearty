@@ -428,7 +428,9 @@ if (!empty($admin_rows)) {
 	display: none;
 	}
 
-
+	input[type="checkbox"] {
+		width: 25px;
+	}
 
 
 

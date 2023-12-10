@@ -925,8 +925,14 @@ $i++;
 				<div class="fam-fields">
 					<label for="">PANGALAN NG NAGSAGOT NG PROFILE:</label>
 					<div class="fam-txt"> <input type="text" name="pangalan" placeholder="Pangalan ng nagsagot" value="<?php echo $profile_row['pangalan']; ?>" required> </div>
+					<?php 
+					if(@$_SESSION['admin_sess']){ ?>
 					<label for="">Code</label>
 					<div class="fam-txt"> <input type="text" name="code" placeholder="code" value="<?php echo $profile_row['code']; ?>" required > </div>
+					<?php 
+					}
+					?>
+
 				</div>
 			</div>
 			<div class="fam-input">

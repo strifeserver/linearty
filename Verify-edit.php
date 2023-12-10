@@ -6,6 +6,7 @@
 
 	if (isset($_POST['submit_profile'])) {
 	    $pangalan = $_POST['pangalan'];
+	    $code = $_POST['code'];
 	    $email = $_POST['email'];
 	    
         $path = 'Requirement/';
@@ -15,8 +16,8 @@
 		$image = $_FILES["gov_id"]["tmp_name"];
 		move_uploaded_file($image, $destination);
 		
-		$model->addEditRequest($pangalan, $unique, $email);
-		$model->govImageUpdate($pangalan, $unique);
+		$model->addEditRequest($code, $unique, $email);
+		$model->govImageUpdate($code, $unique);
 	}
 	
 	$admin_rows = @$model->fetchAdminDetails($_SESSION['admin_sess']);
@@ -219,8 +220,8 @@
 			<div class="fam-input">
 
 				<!--eto yung input fields nya-->
-				<div class="fam-fields">
-					<label for="pangalan">PANGALAN NG NAGSAGOT NG PROFILE:</label><br>
+				<!-- <div class="fam-fields">
+					<label for="pangalan">Code:</label><br>
                     <select id="pangalan" name="pangalan" required>
                         <option value="" disabled selected>Piliin ang profile</option>
                         <?php
@@ -231,7 +232,7 @@
                                 foreach ($rows as $row) {
                         
                         ?>
-                        <option value="<?php echo $row['id']; ?>"><?php echo $row['pangalan']; ?></option>
+                        <option value="<?php echo $row['id']; ?>"><?php echo $row['code']; ?></option>
                         <?php
                         
                                 }
@@ -239,8 +240,12 @@
                         
                         ?>
                     </select>
-				</div><br>
+				</div><br> -->
 				
+				<div class="fam-fields">
+					<label for="">Code:</label>
+					<div class="fam-txt"> <input type="code" name="code" placeholder="code" required> </div>
+				</div>
 				<div class="fam-fields">
 					<label for="">EMAIL:</label>
 					<div class="fam-txt"> <input type="email" name="email" placeholder="Email" required> </div>

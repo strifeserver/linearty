@@ -2,17 +2,17 @@
 
 	date_default_timezone_set('Asia/Manila');
 	Class Model {
-		// private $server = "localhost";
-		// private $username = "root";
-		// private $password = "";
-		// private $dbname = "linearty";
-		// private $conn;
-
 		private $server = "localhost";
-		private $username = "u134789687_webnever";
-		private $password = "1#Dz=q![?AiJ";
-		private $dbname = "u134789687_webnever";
+		private $username = "root";
+		private $password = "";
+		private $dbname = "linearty";
 		private $conn;
+
+		// private $server = "localhost";
+		// private $username = "u134789687_webnever";
+		// private $password = "1#Dz=q![?AiJ";
+		// private $dbname = "u134789687_webnever";
+		// private $conn;
 
 
 		public function __construct() {
@@ -535,17 +535,30 @@
 			return $data;
 		}
 		
-		public function addEditRequest($profile_id, $gov_id, $email) {
-		    $query = "INSERT INTO edit_request (profile_id, gov_id, email, date_sent) VALUES (?, ?, ?, ?)";
-			
-			if($stmt = $this->conn->prepare($query)) {
-			    $date_sent = date("Y-m-d H:i:s");
-
-				$stmt->bind_param('isss', $profile_id, $gov_id, $email, $date_sent);
-				$stmt->execute();
-				$stmt->close();
+		public function addEditRequest($code, $gov_id, $email) {
+			// First, fetch the result from family_profile
+			$fetchQuery = "SELECT id FROM family_profile WHERE code = ?";
+			if ($fetchStmt = $this->conn->prepare($fetchQuery)) {
+				$fetchStmt->bind_param('s', $code);
+				$fetchStmt->execute();
+				$fetchStmt->bind_result($profile_id);
+				
+				// Fetch the result into $profile_id
+				$fetchStmt->fetch();
+				$fetchStmt->close();
+		
+				// Now, proceed with the insert query
+				$query = "INSERT INTO edit_request (profile_id, gov_id, email, date_sent) VALUES (?, ?, ?, ?)";
+				
+				if ($stmt = $this->conn->prepare($query)) {
+					$date_sent = date("Y-m-d H:i:s");
+					$stmt->bind_param('ssss', $profile_id, $gov_id, $email, $date_sent);
+					$stmt->execute();
+					$stmt->close();
+				}
 			}
 		}
+		
 		
 		public function removeEditRequest($id) {
 			$query = "DELETE FROM edit_request WHERE id = ?";
@@ -1051,20 +1064,30 @@
 		}
 
 
-		public function govImageUpdate($profile_id, $requirement) {
-		    // $query = "INSERT INTO edit_request (profile_id, gov_id, email, date_sent) VALUES (?, ?, ?, ?)";
-			$query = "UPDATE `family_profile` SET `requirement` = ? WHERE `family_profile`.`id` = ?";
-
-			if ($stmt = $this->conn->prepare($query)) {
-				$date_sent = date("Y-m-d H:i:s");
+		public function govImageUpdate($code, $requirement) {
+			// First, fetch the result from family_profile
+			$fetchQuery = "SELECT id FROM family_profile WHERE code = ?";
 			
-				// Use 'ss' instead of 'is' for string parameters
-				$stmt->bind_param('ss', $requirement, $profile_id);
-				$stmt->execute();
-				$stmt->close();
+			if ($fetchStmt = $this->conn->prepare($fetchQuery)) {
+				$fetchStmt->bind_param('s', $code);
+				$fetchStmt->execute();
+				$fetchStmt->bind_result($profile_id);
+				
+				// Fetch the result into $profile_id
+				$fetchStmt->fetch();
+				$fetchStmt->close();
+		
+				// Now, proceed with the update query
+				$updateQuery = "UPDATE `family_profile` SET `requirement` = ? WHERE `family_profile`.`id` = ?";
+				
+				if ($stmt = $this->conn->prepare($updateQuery)) {
+					$stmt->bind_param('ss', $requirement, $profile_id);
+					$stmt->execute();
+					$stmt->close();
+				}
 			}
-			
 		}
+		
 
 		public function deleteFamilyData($id) {
 			// Delete from family_talaan_kabahayan

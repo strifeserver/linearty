@@ -247,7 +247,7 @@
 				</div>
 				
 				<div class="fam-fields">
-					<label for="">GOVERNMENT ID:</label>
+					<label for="">GOVERNMENT ID: <span style="color: red;">( postal id, nbi clearance, umid, Philsys id )*</span></label>
 					<!-- <div class="fam-txt"> <input type="file" name="gov_id" style="padding-top: 8px;" required> </div> -->
 
 					<div class="file-input-container">

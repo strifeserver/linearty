@@ -78,24 +78,42 @@
 		
 		
 		public function insertKabahayanRow($profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $katayuan_sibil, $relasyon, $hanapbuhay, $paninirahan, $status) {
-			$query = "INSERT INTO family_talaan_kabahayan (profile_id, pangalan, kapanganakan, edad, kasarian, katayuan_sibil, relasyon, hanapbuhay, paninirahan, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+			$query = "INSERT INTO family_talaan_kabahayan (profile_id, pangalan, first_name, middle_name, last_name, suffix, kapanganakan, edad, kasarian, katayuan_sibil, relasyon, hanapbuhay, paninirahan, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+			// Create a variable to store the result of implode
+			$pangalanImploded = implode(' ', $pangalan);
+		
+			if ($stmt = $this->conn->prepare($query)) {
+				// Use appropriate data types in bind_param
+				$stmt->bind_param('issssssissssss', $profile_id, $pangalanImploded, $pangalan['first_name'], $pangalan['middle_name'], $pangalan['last_name'], $pangalan['suffix'], $kapanganakan, $edad, $kasarian, $katayuan_sibil, $relasyon, $hanapbuhay, $paninirahan, $status);
+		
+				// Check for execution errors
+				if ($stmt->execute()) {
+					$stmt->close();
+				} else {
+					// Handle the error (e.g., log it, return an error code, etc.)
+					echo "Error executing the statement: " . $stmt->error;
+				}
+			} else {
+				// Handle the error (e.g., log it, return an error code, etc.)
+				echo "Error preparing the statement: " . $this->conn->error;
+			}
+		}
+		
+		
+		
+		public function insertKabataanRow($profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $bakuna) {
+			
+			$query = "INSERT INTO family_talaan_kabataan (profile_id, pangalan, first_name, middle_name, last_name, suffix, kapanganakan, edad, kasarian, bakuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$pangalanImploded = implode(' ', $pangalan);
 			if($stmt = $this->conn->prepare($query)) {
-				$stmt->bind_param('ississssss', $profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $katayuan_sibil, $relasyon, $hanapbuhay, $paninirahan, $status);
+				// Change 's' to 'i' for integer data type for $edad
+				$stmt->bind_param('issssssiss', $profile_id, $pangalanImploded, $pangalan['first_name'], $pangalan['middle_name'], $pangalan['last_name'], $pangalan['suffix'], $kapanganakan, $edad, $kasarian, $bakuna);
 				$stmt->execute();
 				$stmt->close();
 			}
 		}
 		
-		public function insertKabataanRow($profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $bakuna) {
-			$query = "INSERT INTO family_talaan_kabataan (profile_id, pangalan, kapanganakan, edad, kasarian, bakuna) VALUES (?, ?, ?, ?, ?, ?)";
-
-			if($stmt = $this->conn->prepare($query)) {
-				$stmt->bind_param('ississ', $profile_id, $pangalan, $kapanganakan, $edad, $kasarian, $bakuna);
-				$stmt->execute();
-				$stmt->close();
-			}
-		}
 		
 		// public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status) {
 		// 	$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -106,14 +124,14 @@
 		// 		$stmt->close();
 		// 	}
 		// }
-		public function addRequest($house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status) {
+		public function addRequest($house_no, $first_name, $middle_name, $last_name, $suffix, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $street, $f3, $f4, $status) {
 			// Get the current date and time
 			$created_at = date('Y-m-d H:i:s');
-		
-			$query = "INSERT INTO document_request (house_no, pangalan, contact_no, document_type, requirement, date_sent, f1, f2, f3, f4, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$pangalan = $first_name.' '.$middle_name.' '.$last_name.' '.$suffix;
+			$query = "INSERT INTO document_request (house_no, pangalan, first_name, middle_name, last_name, suffix, contact_no, document_type, requirement, date_sent, f1, f2, street, f3, f4, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 			if($stmt = $this->conn->prepare($query)) {
-				$stmt->bind_param('ssssssssssss', $house_no, $pangalan, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $f3, $f4, $status, $created_at);
+				$stmt->bind_param('sssssssssssssssss', $house_no, $pangalan, $first_name, $middle_name, $last_name, $suffix, $contact_no, $document_type, $requirement, $date_sent, $f1, $f2, $street, $f3, $f4, $status, $created_at);
 				$stmt->execute();
 				$stmt->close();
 			}
@@ -126,7 +144,10 @@
 		public function fetchRequests() {
 			$data = null;
 
-			$query = "SELECT * FROM document_request ORDER BY `document_request`.`created_at` DESC";
+			$query = "SELECT *
+			FROM document_request
+			ORDER BY status = 'Pending' DESC, created_at DESC;
+			";
 
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->execute();

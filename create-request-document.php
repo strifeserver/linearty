@@ -218,7 +218,13 @@ if (isset($_POST["send_request"])) {
 
 
     $house_no = $_POST["house_no"];
-    $pangalan = $_POST["pangalan"];
+
+    $first_name = $_POST["first_name"];
+    $middle_name = $_POST["middle_name"];
+    $last_name = $_POST["last_name"];
+    $suffix = $_POST["suffix"];
+    $street = $_POST["street"];
+
     $contact_no = $_POST["contact_no"];
     $document_type = $_POST["document"];
 
@@ -242,13 +248,17 @@ if (isset($_POST["send_request"])) {
 
     $addRequest = $model->addRequest(
         $house_no,
-        $pangalan,
+        $first_name,
+        $middle_name,
+        $last_name,
+        $suffix,
         $contact_no,
         $document_type,
         $unique,
         $date_sent,
         $f1,
         $f2,
+        $street,
         $f3,
         $f4,
         $status
@@ -573,9 +583,25 @@ if (!empty($admin_rows)) {
     
                         <label for="housenum">House No.</label>
                         <input type="number" id="housenum" name="house_no" placeholder="House Number" required>
+                        <label for="street">Street</label>
+
+                        <select class="select-input" name="street" id="street" required>
+                            <option value="">Select Street</option>
+                            <option value="JP Rizal">JP Rizal</option>
+                            <option value="Caybanban">Caybanban</option>
+                            <option value="Libis">Libis</option>
+                            <option value="San Jose">San Jose</option>
+                            <option value="Mustasa">Mustasa</option>
+                        </select>
     
-                        <label for="fullname">Full Name</label>
-                        <input type="text" id="fullname" name="pangalan" placeholder="Full name" required>
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                        <label for="middle_name">Middle Name</label>
+                        <input type="text" id="middle_name" name="middle_name" placeholder="Middle Name" required>
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+                        <label for="suffix">Suffix</label>
+                        <input type="text" id="suffix" name="suffix" placeholder="Suffix" required>
     
                         <label for="contactnum">Contact No.</label>
                         <input type="tel" id="contactnum" name="contact_no" placeholder="Contact Number" pattern="[0-9]{11}" required>
@@ -593,7 +619,12 @@ if (!empty($admin_rows)) {
                         </div>
         
     
-                        <button id="login-btn"type="submit">Submit</button>
+                        <div class="login-container">
+                            <input type="checkbox" id="agreeCheckbox">
+                            <label for="agreeCheckbox"> I agree to the <a href="terms_and_agreement.html">Terms and Agreement</a></label>
+
+                            <button id="login-btn" type="submit" disabled>Submit</button>
+                        </div>
                 </div>
                 </form>
                 
@@ -606,6 +637,12 @@ if (!empty($admin_rows)) {
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="Javascript/Profiles.js"></script>
+    <script>
+        // Enable/disable button based on checkbox state
+        document.getElementById('agreeCheckbox').addEventListener('change', function () {
+            document.getElementById('login-btn').disabled = !this.checked;
+        });
+    </script>
     <script src="Javascript/DocsReq.js"></script>
     <script>
         $(function() {

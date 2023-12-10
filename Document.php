@@ -99,8 +99,10 @@
             	$pdf->Write(0, $_POST['full_name']);
             	
             	$pdf->SetXY(56, 91);
-            	$pdf->Write(0, $_POST['f2']);
-            	
+            	$pdf->Write(0, $_POST['house_no'].' '.$_POST['street'].' Poblacion Santa Maria Bulacan');
+                // echo '<pre>';
+                // print_r($_POST);
+                // exit;
             	$pdf->SetXY(94, 150);
             	$pdf->Write(0, $_POST['date_approved']);
             		
@@ -275,6 +277,7 @@
 	
 	if (isset($_POST['send_request'])) {
 	    $house_no = $_POST['house_no'];
+	    $street = $_POST['street'];
 	    $pangalan = $_POST['pangalan'];
 	    $contact_no = $_POST['contact_no'];
 	    $document_type = $_POST['document'];
@@ -294,7 +297,7 @@
 	    $date_sent = date("Y-m-d H:i:s");
 	    $status = 'Pending';
 	    
-	    $model->addRequest($house_no, $pangalan, $contact_no, $document_type, $unique, $date_sent, $f1, $f2, $f3, $f4, $status);
+	    $model->addRequest($house_no, $pangalan, $contact_no, $document_type, $unique, $date_sent, $f1, $f2, $street, $f3, $f4, $status);
 	}
 	
 	if (isset($_POST['change_request'])) {
@@ -736,6 +739,8 @@
                                                 $row['f3'],
                                                 $row['f4'],
                                                 $row['date_approved'],
+                                                $row['street'],
+                                                $row['house_no'],
                                             ];
                                             $printDoc = htmlspecialchars(json_encode($printDoc), ENT_QUOTES, 'UTF-8');
                                          
@@ -926,6 +931,8 @@ function printDocument(data1) {
     var f3 = printDocObj[4];
     var f4 = printDocObj[5];
     var date_approved = printDocObj[6];
+    var street = printDocObj[7];
+    var house_no = printDocObj[8];
 
     Swal.fire({
         title: "<strong><u>Print Document</u></strong>",
@@ -941,6 +948,8 @@ function printDocument(data1) {
             <input type="hidden" name="f4" value="`+f4+`">
             <input type="hidden" name="print_certificate" value="`+true+`">
             <input type="hidden" name="date_approved" value="`+date_approved+`">
+            <input type="hidden" name="street" value="`+street+`">
+            <input type="hidden" name="house_no" value="`+house_no+`">
             <input type="text" name="ctc_no" value="">
             <input type="date" name="date_issued" value="">
             <button>Submit</button>

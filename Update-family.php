@@ -51,8 +51,9 @@ if (isset($_POST['submit_profile'])) {
         $$fpnum = (isset($_POST['fp' . $i . ''])) ? $_POST['fp' . $i . ''] : "0";
     }
 
+
     $pangalan = $_POST['pangalan'];
-    $petsa = $_POST['petsa'];
+    $petsa = @$_POST['petsa'];
 
     $tubig = $tg1 . ", " . $tg2 . ", " . $tg3 . ", " . $tg4;
     $palikuran = $p1 . ", " . $p2 . ", " . $p3 . ", " . $p4;
@@ -62,18 +63,36 @@ if (isset($_POST['submit_profile'])) {
     $pamilya = $pp1 . ", " . $pp2;
     $family_planning = $fp1 . ", " . $fp2 . ", " . $fp3 . ", " . $fp4 . ", " . $fp5 . ", " . $fp6 . ", " . $fp7;
 
+
     $model->updateFamilyProfile($house_no, $street, $apartment_owner, $sitio, $relihiyon, $contact_no, $tubig, $palikuran, $tanim, $hardin, $manok, $baboy, $gumagamit_ng, $buntis, $pamilya, $family_planning, $pangalan, $_GET['id']);
 
     $model->removeKabahayan($_GET['id']);
     $model->removeKabataan($_GET['id']);
 
-    foreach ($_POST['kabahayan_name'] as $key => $kbhyn) {
-        $model->insertKabahayanRow($_GET['id'], $_POST['kabahayan_name'][$key], $_POST['kabahayan_dob'][$key], $_POST['kabahayan_age'][$key], $_POST['kabahayan_gender'][$key], $_POST['kabahayan_civil'][$key], $_POST['kabahayan_relationship'][$key], $_POST['kabahayan_occupation'][$key], $_POST['kabahayan_year'][$key], $_POST['kabahayan_status'][$key]);
-    }
+	foreach ($_POST['first_name'] as $key => $kbhyn) {
+		$kabahayan_name = [
+			'first_name' => @$_POST['first_name'][$key],
+			'middle_name' => @$_POST['middle_name'][$key],
+			'last_name' => @$_POST['last_name'][$key],
+			'suffix' => @$_POST['suffix'][$key],
+		];
+		$kabahayan_status = (isset($_POST['kabahayan_status'][$key])) ? $_POST['kabahayan_status'][$key] : "N/A";
+	
+		$model->insertKabahayanRow($_GET['id'], $kabahayan_name, $_POST['kabahayan_dob'][$key], $_POST['kabahayan_age'][$key], $_POST['kabahayan_gender'][$key], $_POST['kabahayan_civil'][$key], $_POST['kabahayan_relationship'][$key], $_POST['kabahayan_occupation'][$key], $_POST['kabahayan_year'][$key], $kabahayan_status);
+	}
 
-    foreach ($_POST['bata_pangalan'] as $ky => $bt) {
-        $model->insertKabataanRow($_GET['id'], $_POST['bata_pangalan'][$ky], $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);
-    }
+	foreach ($_POST['bata_first_name'] as $ky => $bt) {
+		if (trim($ky) != '') {
+			$kabataan_name = [
+				'first_name' => @$_POST['bata_first_name'][$key],
+				'middle_name' => @$_POST['bata_middle_name'][$key],
+				'last_name' => @$_POST['bata_last_name'][$key],
+				'suffix' => @$_POST['bata_suffix_name'][$key],
+			];
+		
+			@$model->insertKabataanRow($last_id, $kabataan_name, $_POST['bata_kapanganakan'][$ky], $_POST['bata_edad'][$ky], $_POST['bata_kasarian'][$ky], $_POST['bata_bakuna'][$ky]);   
+		}
+	}
 }
 
 $admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
@@ -425,21 +444,29 @@ if (!empty($profile_rows)) {
 <tr>
 						<!-- <td>1</td> -->
 						<td> 
+	
+
 							<div class="form-field">
-								<h3 style="font-weight: bold;">Pangalan</h3>
-								<div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname"  required value="<?php echo $kabahayan_row['pangalan']; ?>"> </div> 
+								<h3 style="font-weight: bold;">First Name</h3>
+								<div class="input"> <input type="text" name="first_name[]" placeholder="First Name"  value="<?php echo $kabahayan_row['first_name']; ?>" required> </div> 
 							</div>
+
 							<div class="form-field">
 								<h3 style="font-weight: bold;">Kapanganakan</h3>
 								<div class="input"> <input type="date"  name="kabahayan_dob[]" placeholder="Date of Birth" required value="<?php echo $kabahayan_row['kapanganakan']; ?>"> </div> 
 							</div>
+							<div class="form-field">
+							</div>
 
 						</td>
 						<td> 
-
 							<div class="form-field">
-							<h3 style="font-weight: bold;">Edad</h3>
-							<div class="input"> <input type="number"  name="kabahayan_age[]" placeholder="Age" required value="<?php echo $kabahayan_row['edad']; ?>"> </div>
+								<h3 style="font-weight: bold;">Middle Name</h3>
+								<div class="input"> <input type="text" name="middle_name[]" placeholder="middle Name" value="<?php echo $kabahayan_row['middle_name']; ?>" required> </div> 
+							</div>
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Edad</h3>
+								<div class="input"> <input type="number"  name="kabahayan_age[]" placeholder="Age" required value="<?php echo $kabahayan_row['edad']; ?>"> </div>
 							</div>
 
 							<div class="form-field">
@@ -448,7 +475,10 @@ if (!empty($profile_rows)) {
 							</div>
 						</td>
 						<td> 
-
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Last Name</h3>
+								<div class="input"> <input type="text" name="last_name[]" placeholder="last Name"  required value="<?php echo $kabahayan_row['last_name']; ?>"> </div> 
+							</div>
 							<div class="form-field">
 								<h3 style="font-weight: bold;">Katayuan Sibil</h3>
 								<div class="input"> <input type="text"  name="kabahayan_civil[]" placeholder="Civil Status" required value="<?php echo $kabahayan_row['katayuan_sibil']; ?>"> </div> 
@@ -462,7 +492,10 @@ if (!empty($profile_rows)) {
 
 						</td>
 						<td>
-
+							<div class="form-field">
+								<h3 style="font-weight: bold;">Suffix</h3>
+								<div class="input"> <input type="text" name="suffix[]" placeholder="Suffix" value="<?php echo $kabahayan_row['suffix']; ?>" required> </div> 
+							</div>
 						<div class="form-field">
 							<h3 style="font-weight: bold;">Hanapbuhay</h3>
 							<div class="input"> <input type="text"  name="kabahayan_occupation[]" placeholder="Occupation" required value="<?php echo $kabahayan_row['hanapbuhay']; ?>"> </div>
@@ -563,13 +596,13 @@ $i++;
 			<table width="100%">
 				<thead>
 					<tr>
-						<th>Id</th>
+						<!-- <th>Id</th>
 						<th>Pangalan</th>
 						<th>Kapanganakan</th>
 						<th>Edad</th>
 						<th>Kasarian</th>
 						<th>Bakuna</th>
-						<th>Action</th>
+						<th>Action</th> -->
 					</tr>
 				</thead>
 
@@ -583,14 +616,56 @@ $i++;
             $i = 1;
 
             foreach ($kabataan_rows as $kabataan_row) {
-
+			
                 ?>
 					<tr id="row<?php echo $i; ?>">
 						<td><?php echo $i; ?></td>
-						<td><div class="input"> <input type="text" placeholder="Pangalan" name="bata_pangalan[]" value="<?php echo $kabataan_row['pangalan']; ?>" required> </div></td>
-						<td><div class="input"> <input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" value="<?php echo $kabataan_row['kapanganakan']; ?>" required> </div></td>
-						<td><div class="input"> <input type="number" placeholder="Edad" name="bata_edad[]" value="<?php echo $kabataan_row['edad']; ?>" required> </div></td>
-						<td><div class="input"> <select name="bata_kasarian[]" required><option value="" disabled="" selected="">Select gender</option><option value="M" <?php if ($kabataan_row['kasarian'] == 'M') {echo 'selected';}?>>Male</option><option value="F" <?php if ($kabataan_row['kasarian'] == 'F') {echo 'selected';}?>>Female</option></select> </div></td>
+
+						<td>
+							<div class="input"> 
+								<h3 style="font-weight: bold;">First Name</h3>
+								<input type="text" placeholder="First Name" name="bata_first_name[]" value="<?php echo $kabataan_row['first_name']; ?>"> 
+							</div>	
+							<div class="input"> 
+							<h3 style="font-weight: bold; opacity:0;">First Name</h3>
+
+								<input type="text" placeholder="Pangalan"style="opacity:0"> 
+							</div>
+						</td>
+
+						<td>
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Middle Name</h3>
+								<input type="text" placeholder="Middle Name" name="bata_middle_name[]" value="<?php echo $kabataan_row['middle_name']; ?>"> 
+							</div>	
+
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Kapanganakan</h3>
+								<input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" value="<?php echo $kabataan_row['kapanganakan']; ?>" onchange="calculateAgeBata(this)" required > 
+							</div>
+						
+							
+						</td>
+						<td>
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Last Name</h3>	
+								<input type="text" placeholder="Last Name" name="bata_last_name[]" value="<?php echo $kabataan_row['last_name']; ?>"> 
+							</div>
+						
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Edad</h3>
+								<input type="number" placeholder="Edad" name="bata_edad[]" value="<?php echo $kabataan_row['edad']; ?>" required > 
+							</div>
+						</td>
+						<td>
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Suffix</h3>	
+								<input type="text" placeholder="Suffix" name="bata_suffix_name[]" value="<?php echo $kabataan_row['suffix']; ?>"> 
+							</div>
+						
+							<div class="input"> 
+								<h3 style="font-weight: bold;">Kasarian</h3>	
+								<select class="select-input"  name="bata_kasarian[]" required><option value="" disabled="" selected="">Select gender</option><option value="M" <?php if ($kabataan_row['kasarian'] == 'M') {echo 'selected';}?>>Male</option><option value="F" <?php if ($kabataan_row['kasarian'] == 'F') {echo 'selected';}?>>Female</option></select> </div></td>
 						<td><div class="input"> <input type="text" placeholder="Bakuna" name="bata_bakuna[]" value="<?php echo $kabataan_row['bakuna']; ?>" required> </div></td>
 						<?php
 
@@ -940,6 +1015,115 @@ $i++;
     }
   });
 	</script>
+
+<script>
+
+function calculateAge(input) {
+	// Get the date of birth value from the input field
+	var dobValue = input.value;
+
+	// Check if a date is selected
+	if (dobValue) {
+		// Parse the date string to a Date object
+		var dobDate = new Date(dobValue);
+
+		// Get the current date
+		var currentDate = new Date();
+
+		// Calculate the age
+		var age = currentDate.getFullYear() - dobDate.getFullYear();
+
+		// Check if the birthday has occurred this year
+		if (currentDate.getMonth() < dobDate.getMonth() || (currentDate.getMonth() === dobDate.getMonth() && currentDate.getDate() < dobDate.getDate())) {
+		age--;
+		}
+
+		// Set the age to 0 if it is negative
+		age = Math.max(age, 0);
+
+		// Find the corresponding age input field in the same row
+		var row = input.closest('tr');
+		var ageInput = row.querySelector('input[name="kabahayan_age[]"]');
+
+		// Update the age input field with the calculated age
+		ageInput.value = age;
+	}
+}
+
+function calculateAgeBata(input) {
+	// Get the date of birth value from the input field
+	var dobValue = input.value;
+
+	// Check if a date is selected
+	if (dobValue) {
+		// Parse the date string to a Date object
+		var dobDate = new Date(dobValue);
+
+		// Get the current date
+		var currentDate = new Date();
+
+		// Calculate the age
+		var age = currentDate.getFullYear() - dobDate.getFullYear();
+
+		// Check if the birthday has occurred this year
+		if (currentDate.getMonth() < dobDate.getMonth() || (currentDate.getMonth() === dobDate.getMonth() && currentDate.getDate() < dobDate.getDate())) {
+		age--;
+		}
+
+		// Set the age to 0 if it is negative
+		age = Math.max(age, 0);
+
+		// Find the corresponding age input field in the same row
+		var row = input.closest('tr');
+		var ageInput = row.querySelector('input[name="bata_edad[]"]');
+
+		// Update the age input field with the calculated age
+		ageInput.value = age;
+	}
+}
+
+function checkDuplicate() {
+	// Get values from the input fields
+	var name = document.querySelector('input[name="pangalan"]').value;
+	var houseNo = document.querySelector('input[name="house_no"]').value;
+
+	// Create a new XMLHttpRequest object
+	var xhr = new XMLHttpRequest();
+
+	// Configure it: GET-request for the specified URL with parameters
+	xhr.open('GET', 'api.php?mode=checkduplicate&name=' + encodeURIComponent(name) + '&house_no=' + encodeURIComponent(houseNo), true);
+
+	// Define the onload and onerror callbacks
+	xhr.onload = function () {
+		if (xhr.status == 200) {
+		// Parse the JSON response
+		var response = JSON.parse(xhr.responseText);
+
+		// Handle the successful response here
+		console.log(response);
+
+		// Update the <p> element with the error message
+		var errorMessageElement = document.getElementById('err_message');
+		errorMessageElement.textContent = response.errMessage;
+		// errorMessageElement.style.color = response.is_valid ? 'green' : 'red'; // Adjust color based on validity
+		} else {
+		// Handle the error here
+		console.error('Request failed with status ' + xhr.status);
+		}
+	};
+
+	xhr.onerror = function () {
+		// Handle the network error here
+		console.error('Network error occurred');
+	};
+
+	// Send the request
+	xhr.send();
+}
+</script>
+
+
+
 <!------ FAMILY PAPER ENDS ---------------------------------------------------------------------------------------->
 </body>
 </html>

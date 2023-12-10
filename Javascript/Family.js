@@ -6,10 +6,49 @@ let i = 1;
     newRow.id = 'row' + i;
     newRow.innerHTML = `
       <td>${i}</td>
-      <td><div class="input"> <input type="text" placeholder="Pangalan" name="bata_pangalan[]" required> </div></td>
-      <td><div class="input"> <input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" required> </div></td>
-      <td><div class="input"> <input type="number" placeholder="Edad" name="bata_edad[]" required> </div></td>
-      <td><div class="input"> <select name="bata_kasarian[]" required><option value="" disabled="" selected="">Select gender</option><option value="M">Male</option><option value="F">Female</option></select> </div></td>
+      <td>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">First Name</h3>
+          <input type="text" placeholder="First Name" name="bata_first_name[]"> 
+        </div>
+        <div class="input"> 
+          <input type="text" placeholder="Pangalan"style="opacity:0"> 
+        </div>
+      </td>
+      <td>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Middle Name</h3>	
+          <input type="text" placeholder="Middle Name" name="bata_middle_name[]"> 
+        </div>
+
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Kapanganakan</h3>	
+          <input type="date" placeholder="Kanganakan" name="bata_kapanganakan[]" onchange="calculateAgeBata(this)"> 
+        </div>
+      </td>
+      <td>
+      <div class="input"> 
+      <h3 style="font-weight: bold;">Last Name</h3>	
+        <input type="text" placeholder="Last Name" name="bata_last_name[]"> </div>
+      </div>
+      <div class="input"> 
+        <h3 style="font-weight: bold;">Edad</h3>	
+
+        <input type="number" placeholder="Edad" name="bata_edad[]"> 
+      </td>
+      <td>
+      <div class="input"> 
+        <h3 style="font-weight: bold;">Suffix</h3>	
+        <input type="text" placeholder="Suffix" name="bata_suffix_name[]"> 
+      </div>
+        <div class="input"> 
+          <h3 style="font-weight: bold;">Kasarian</h3>	
+          <select class="select-input" name="bata_kasarian[]">
+            <option value="" disabled="" selected="">Select gender</option>
+            <option value="M">Male</option><option value="F">Female</option>
+          </select> 
+        </div>
+      </td>
       <td><div class="input"> <input type="text" placeholder="Bakuna" name="bata_bakuna[]" required> </div></td>
       <td><button type="button" data-id="${i}" class="bata_remove btn">-</button></td>
     `;
@@ -36,17 +75,22 @@ let i = 1;
     newRow.innerHTML = `
       <td> 
         <div class="form-field">
-          <h3 style="font-weight: bold;">Pangalan</h3>
-          <div class="input"> <input type="text" name="kabahayan_name[]" placeholder="Fullname"  required> </div> 
+          <h3 style="font-weight: bold;">First Name</h3>
+          <div class="input"> <input type="text" name="first_name[]" placeholder="First Name"  required> </div> 
         </div>
         <div class="form-field">
           <h3 style="font-weight: bold;">Kapanganakan</h3>
-          <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required> </div> 
+          <div class="input"> <input type="date" name="kabahayan_dob[]" placeholder="Date of Birth" required onchange="calculateAge(this)"> </div> 
         </div>
-
+        <div class="form-field">
+							
+        </div>
       </td>
       <td> 
-
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Middle Name</h3>
+          <div class="input"> <input type="text" name="middle_name[]" placeholder="Middle Name"  required> </div> 
+        </div>
         <div class="form-field">
         <h3 style="font-weight: bold;">Edad</h3>
         <div class="input"> <input type="number" name="kabahayan_age[]" placeholder="Age" required> </div>
@@ -58,7 +102,10 @@ let i = 1;
         </div>
       </td>
       <td> 
-
+        <div class="form-field">
+          <h3 style="font-weight: bold;">Last Name</h3>
+          <div class="input"> <input type="text" name="last_name[]" placeholder="Last Name"  required> </div> 
+        </div>
         <div class="form-field">
           <h3 style="font-weight: bold;">Katayuan Sibil</h3>
           <div class="input"> <input type="text" name="kabahayan_civil[]" placeholder="Civil Status" required> </div> 
@@ -72,7 +119,10 @@ let i = 1;
 
       </td>
       <td>
-
+      <div class="form-field">
+        <h3 style="font-weight: bold;">Suffix</h3>
+        <div class="input"> <input type="text" name="suffix[]" placeholder="suffix"  required> </div> 
+      </div>
       <div class="form-field">
         <h3 style="font-weight: bold;">Hanapbuhay</h3>
         <div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" required> </div>

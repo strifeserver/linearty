@@ -43,7 +43,7 @@ document.getElementById('doc').addEventListener('change', function() {
             upload += 'Police Clearance';
             break;
         default:
-            upload += 'Valid ID';
+            upload += 'Valid ID <span style="color: red;">( postal id, nbi clearance, umid, Philsys id )*</span>';
     }
     // document.getElementById('file-upload').innerHTML = '<label for="upload">'+upload+'</label><input type="file" name="requirement" id="upload" required>';
     document.getElementById('file-upload').innerHTML = '<label for="upload">'+upload+'</label><div class="file-input-container"><label for="upload" class="custom-file-input">Choose Upload File</label><input type="file" name="requirement" id="upload" required></input></div>';

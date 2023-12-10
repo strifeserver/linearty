@@ -479,7 +479,14 @@ main{
                     <div>
                         <a href="Statistics-profile.php?type=2&year=<?php echo $year; ?>">
                
-                            <h1 class="text-color"><?php echo @count($model->fetchProfiles2()) ?? 0; ?></h1>
+                            <h1 class="text-color"><?php 
+                            
+                            $profiles = $model->fetchProfiles2();
+$profilesCount = is_array($profiles) ? count($profiles) : 0;
+
+echo $profilesCount;
+                            
+                            ?></h1>
                             <span class="text-color">Active Residents</span>
                             <small>Year: <?php echo $year; ?></small>
                         </a>

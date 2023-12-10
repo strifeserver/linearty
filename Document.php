@@ -8,7 +8,7 @@
 	ob_start(); 
     use Twilio\Rest\Client;
     
-    $accountSid = 'AC7e2863931cfad9261ddbfdee59a66f13';
+    $accountSid = 'AC4e13c9e181a8b5f0348e7b03be070d5e';
     $authToken = '339a0ac8a49b21b50f5f15d1906720cd';
         
     $client = new Client($accountSid, $authToken);
@@ -68,7 +68,8 @@
             	$pdf->Write(0, $_POST['f1']);
             	
             	$pdf->SetXY(46, 96);
-            	$pdf->Write(0, $_POST['f2']);
+                $pdf->Write(0, $_POST['house_no'].' '.$_POST['street'].' Poblacion Santa Maria Bulacan');
+            	// $pdf->Write(0, $_POST['f2']);
             	
             	$pdf->SetXY(36, 120);
             	$pdf->Write(0, $_POST['date_approved']);
@@ -780,6 +781,7 @@
                             </div>
                             <?php
                                 }
+                                if ($row['status'] == "Pending"){
 
                             ?>
                             <div id="changeStatus<?php echo $row['id']; ?>" class="modal">
@@ -804,6 +806,10 @@
                                 </div>
                               </div>
                             <?php
+                                }
+
+
+
                                         $i++;
                                     }
                                 }

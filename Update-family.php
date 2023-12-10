@@ -95,7 +95,7 @@ if (isset($_POST['submit_profile'])) {
 	}
 }
 
-$admin_rows = $model->fetchAdminDetails($_SESSION['admin_sess']);
+$admin_rows = $model->fetchAdminDetails(@$_SESSION['admin_sess']);
 
 if (!empty($admin_rows)) {
     foreach ($admin_rows as $admin_row) {
@@ -132,7 +132,7 @@ if (!empty($admin_rows)) {
 				<ul>
                     <?php
 
-if ($admin_type == 'super') {
+if (@$admin_type == 'super') {
 
     ?>
 					<li>
@@ -172,7 +172,7 @@ if ($admin_type == 'super') {
 
                     <?php
 
-if ($admin_type == 'super') {
+if (@$admin_type == 'super') {
 
     ?>
 					<li>
@@ -405,6 +405,8 @@ if (!empty($profile_rows)) {
 	  <div class="table">
 		<section class="table-header">
 			<h4>Talaan ng mga nakatira sa Kabahayan(Kasama ang mga kawaksi sa bahay, ofw, nakakulong)</h4>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" id="talaan-kabahayan-add" class="btn">+</button>
 		</section>
 
 		<!--header nung table form-->
@@ -494,7 +496,7 @@ if (!empty($profile_rows)) {
 						<td>
 							<div class="form-field">
 								<h3 style="font-weight: bold;">Suffix</h3>
-								<div class="input"> <input type="text" name="suffix[]" placeholder="Suffix" value="<?php echo $kabahayan_row['suffix']; ?>" required> </div> 
+								<div class="input"> <input type="text" name="suffix[]" placeholder="Suffix" value="<?php echo $kabahayan_row['suffix']; ?>" > </div> 
 							</div>
 						<div class="form-field">
 							<h3 style="font-weight: bold;">Hanapbuhay</h3>
@@ -546,7 +548,7 @@ if (!empty($profile_rows)) {
 						<td> <div class="input"> <input type="text" name="kabahayan_occupation[]" placeholder="Occupation" value="<?php echo $kabahayan_row['hanapbuhay']; ?>" required> </div> </td>
 						<td> <div class="input"> <input type="date" name="kabahayan_year[]" placeholder="Year of Residency" value="<?php echo $kabahayan_row['paninirahan']; ?>" required> </div> </td>
 						<td> <div class="input">
-						    <select name="kabahayan_status[]" required>
+						    <select name="kabahayan_status[]" >
 				                <option value="" disabled="" selected="">Select option</option>
 				                <option value="PWD" <?php if ($kabahayan_row['status'] == 'PWD') {echo 'selected';}?>>PWD</option>
 				                <option value="Senior" <?php if ($kabahayan_row['status'] == 'Senior') {echo 'selected';}?>>Senior</option>
@@ -589,6 +591,8 @@ $i++;
 	  <div class="table2">
 		<div class="th2">
 			<h4>Talaan ng mga batang 0-59 buwan (Batang bagong panganak hanggang 4 na taon at 9 na buwan)</h4>
+
+			&nbsp; &nbsp; &nbsp; &nbsp; <button class="btn" type="button" id="talaan-bata-add">+</button>
 		</div>
 
 		<!--eto yung body nung table-->
@@ -672,7 +676,7 @@ $i++;
                 if ($i == 1) {
 
                     ?>
-						<td><button type="button" id="talaan-bata-add">+</button></td>
+						<td></td>
 						<?php
 
                 } else {
@@ -959,8 +963,8 @@ $i++;
 
 	<script>
 	    let i = <?php echo count($kabataan_rows); ?>;
-
-  document.getElementById('talaan-bata-add').addEventListener('click', function() {
+try {
+	document.getElementById('talaan-bata-add').addEventListener('click', function() {
     i++;
     const newRow = document.createElement('tr');
     newRow.id = 'row' + i;
@@ -1014,6 +1018,10 @@ $i++;
     `;
     document.getElementById('talaan-bata').appendChild(newRow);
   });
+} catch (error) {
+	
+}
+
 
   document.addEventListener('click', function(event) {
     if (event.target.classList.contains('bata_remove')) {
@@ -1081,7 +1089,7 @@ $i++;
       <td>
       <div class="form-field">
         <h3 style="font-weight: bold;">Suffix</h3>
-        <div class="input"> <input type="text" name="suffix[]" placeholder="suffix"  required> </div> 
+        <div class="input"> <input type="text" name="suffix[]" placeholder="suffix"  > </div> 
       </div>
       <div class="form-field">
         <h3 style="font-weight: bold;">Hanapbuhay</h3>

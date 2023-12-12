@@ -143,12 +143,22 @@
 		
 		public function fetchRequests() {
 			$data = null;
-
-			$query = "SELECT *
-			FROM document_request
-			ORDER BY status = 'Pending' DESC, created_at DESC;
-			";
-
+			$created_at = $_GET['years'] ?? null;
+			$status = $_GET['status'] ?? null;
+		
+			$query = "SELECT * FROM document_request WHERE 1";
+		
+			if (!empty($created_at)) {
+				$formattedYear = $created_at . "-01-01"; // Assuming you want to filter requests for the entire year
+				$query .= " AND created_at >= '$formattedYear' AND created_at < DATE_ADD('$formattedYear', INTERVAL 1 YEAR)";
+			}
+		
+			if (!empty($status)) {
+				$query .= " AND status = '$status'";
+			}
+		
+			$query .= " ORDER BY status = 'Pending' DESC, created_at DESC";
+		
 			if ($stmt = $this->conn->prepare($query)) {
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -158,8 +168,10 @@
 				}
 				$stmt->close();
 			}
+		
 			return $data;
 		}
+		
 		
 		public function changeRequestStatus($status, $id) {
 			$query = "UPDATE document_request SET status = ? WHERE id = ?";
@@ -220,10 +232,31 @@
 		
 		public function fetchProfiles() {
 			$data = null;
-
-			$query = "SELECT * FROM family_profile ORDER BY `family_profile`.`status` DESC";
-
+			$year = $_GET['years'] ?? null;
+			$status = $_GET['status'] ?? null;
+		
+			$query = "SELECT * FROM family_profile WHERE 1 ";
+		
+			if (!empty($year)) {
+				$formattedYear = $year . "-01-01"; // Assuming you want to filter profiles for the entire year
+				$query .= " AND petsa >= ? AND petsa < DATE_ADD(?, INTERVAL 1 YEAR)";
+			}
+		
+			if (!empty($status)) {
+				$query .= " AND status = ?";
+			}
+		
+			$query .= " ORDER BY `family_profile`.`status` DESC";
+		
 			if ($stmt = $this->conn->prepare($query)) {
+				if (!empty($year) && !empty($status)) {
+					$stmt->bind_param("sss", $formattedYear, $formattedYear, $status);
+				} elseif (!empty($year)) {
+					$stmt->bind_param("ss", $formattedYear, $formattedYear);
+				} elseif (!empty($status)) {
+					$stmt->bind_param("s", $status);
+				}
+		
 				$stmt->execute();
 				$result = $stmt->get_result();
 				$num_of_rows = $stmt->num_rows;
@@ -232,8 +265,10 @@
 				}
 				$stmt->close();
 			}
+		
 			return $data;
 		}
+		
 
 		public function fetchProfilesActive() {
 			$data = null;

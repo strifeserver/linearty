@@ -603,6 +603,38 @@
                     <!--dito yung create and delete buttons-->
                     <div class="head-btn">
                         <button onclick="openLoginForm()">Create..<span class="bx bxs-pencil"></span></button>
+
+
+                        <form method="GET" action="" style="display:contents;">
+                        <button style="height: 40px;">Filter</button>
+                        &nbsp; 
+                        &nbsp; 
+                        &nbsp; 
+                        <label for="years">Year</label>
+                        &nbsp;
+                        <select name="years" name="years">
+                            <option value="">All</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                        &nbsp; 
+                        &nbsp; 
+                        &nbsp; 
+                        <label for="status">Status</label>
+                        &nbsp;
+                        <select name="status" name="status">
+                            <option value="">All</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Declined">Declined</option>
+                            <option value="Delivered">Pick-up</option>
+                        </select>
+                    </form>
+                        
                     </div>
 
                 </section>
